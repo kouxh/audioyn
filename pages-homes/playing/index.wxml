@@ -1,0 +1,65 @@
+<!--pages-homes/playing/index.wxml-->
+<view class="songDetailContainer">
+
+<view class="musicAuthor">{{song.ar[0].name}}</view>
+<view class="circle"></view>
+
+<!-- 摇杆 -->
+<image class="needle {{isPlay && 'needleRotate'}}" src="https://s3.music.126.net/m/s/img/needle.png?702cf6d95f29e2e594f53a3caab50e12"></image>
+<!-- 磁盘 -->
+<view class="discContainer {{isPlay && 'discAnimation'}}">
+  <image class="disc" src="https://s3.music.126.net/mobile-new/img/disc.png?d3bdd1080a72129346aa0b4b4964b75f="></image>
+  <!-- 歌曲封面图 -->
+  <image class="musicImg" src="{{playData.poster}}"></image>
+</view>
+
+<!-- 进度条控制 -->
+<!-- <view class="progressControl">
+  <text>{{currentTime}}</text> -->
+  <!-- 总进度条 -->
+  <!-- <view class="barControl"> -->
+    <!-- 实时进度条 -->
+    <!-- <view class="audio-currentTime-Bar" style="width: {{currentWidth + 'rpx'}}"> -->
+      <!-- 小圆球 -->
+      <!-- <view class="audio-circle"></view>
+    </view>
+  </view>
+  <text>{{durationTime}}</text>
+</view> -->
+<view class='progress'>
+      <text>{{progressText}}</text>
+      <slider class='bar' bindchange="sliderChange" value="{{progress}}" step="1" min='0' max='{{duration}}' activeColor="#1aad19" block-size="12" block-color="#1aad19" />
+      <text>{{durationText}}</text>
+</view>
+<!-- 歌曲播放控制 -->
+<view class="control">
+    <icon class="iconfont icon-top-music" id="pre" bindtap="handleSwitch"></icon>
+    <icon class="iconfont  {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}}" bindtap="handleMusicPlay"></icon>
+    <icon class="iconfont icon-next-music" id="next" bindtap="handleSwitch"></icon>
+  </view>
+<!-- <view class="musicControl">
+  <text class="iconfont icon-random"></text>
+  <text class="iconfont icon-diyigeshipin" id="pre" bindtap="handleSwitch"></text>
+  <text class="iconfont {{isPlay ? 'icon-zanting' : 'icon-kaishi'}} big" bindtap="handleMusicPlay"></text>
+  <text class="iconfont icon-zuihouyigeshipin" id="next" bindtap="handleSwitch"id="next" bindtap="handleSwitch"></text>
+  <text class="iconfont icon-liebiao"></text>
+</view> -->
+
+</view>
+
+<!-- 
+<view class="pages-play-index">
+  <view class="{{item.id===playId ? 'playing':''}}"></view>
+  <view class="player-info">
+    <view class="player-disc">
+      <image class="player-img" src="{{playData.poster}}"></image>
+    </view>
+  </view>
+  <view class="control">
+    <icon class="iconfont icon-top-music"></icon>
+    <icon class="iconfont icon-bofang"></icon>
+    <icon class="iconfont icon-next-music"></icon>
+  </view>
+</view> -->
+
+

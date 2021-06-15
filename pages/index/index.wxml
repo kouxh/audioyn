@@ -1,0 +1,22 @@
+<!--index.wxml-->
+<view class="pages-login">
+  <view class="logo-box">
+    <image mode='aspectFill' src="/assets/img/logo.png" alt class="img" />
+  </view>
+  <view class="userinfo" wx:if="{{userInfo==''&& !hasBindMobile}}">
+      <button class="user-btn" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 微信快捷登录 </button>
+      <button class="user-btn" wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信快捷登录 </button>
+      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
+  </view>
+  <view wx:else="{{userInfo!='' && hasBindMobile}}">
+    <van-popup show="{{ phoneShow }}" round>
+      <view class="content-box">
+        <image mode='aspectFill' src="/assets/img/person.png" alt class="phone-img img" />
+        <icon class="iconfont icon-delete" bindtap="onClose"></icon>
+        <view class="title">检测到微信号未注册过CMAS随身听账号，请尝试使用手机号进行登录</view>
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="phone-btn">手机号一键登录</button>
+      </view>
+    </van-popup>
+  </view>
+  
+</view>

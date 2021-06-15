@@ -1,0 +1,70 @@
+/* components/submit/index.wxss */
+.common_mask {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  transition: transform 0.3s ease-in-out;
+}
+
+.mask_box {
+  display: flex;
+}
+
+.content {
+  margin: 0 auto;
+  display: flex;
+  padding-top: 380rpx;
+}
+
+.bg-box {
+  position: relative;
+  /* width: 400rpx; */
+}
+
+.bg-img {
+  width: 380rpx;
+  height: 190rpx;
+  margin-left: 20rpx;
+}
+
+.do-box {
+  position: absolute;
+  top: 260rpx;
+  left: 90rpx;
+}
+
+.do-title{
+  text-align: center;
+  font-size: 30rpx;
+	line-height: 36rpx;
+	letter-spacing: 0rpx;
+	color: #ffffff;
+}
+.text {
+  text-align: center;
+  font-size: 26rpx;
+	line-height: 36rpx;
+	letter-spacing: 0rpx;
+  color: #ffffff;
+  padding-top: 20rpx;
+}
+
+
+.close-box {
+  width: 62rpx;
+  height: 62rpx;
+  text-align: center;
+  position: absolute;
+  top:60%;
+  left: 45%;
+}
+
+.close-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,211 @@
+/* pages/member/index.wxss */
+.pages-member-index{
+  width: 100vw;
+  height: 100vh;
+}
+.member-header{
+  width: 100%;
+	height: 160rpx;
+  background-image: url("https://march.yuanian.com/static/assets/img/member-header.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+}
+.photo-box{
+  width: 118rpx;
+  height: 118rpx;
+  border-radius: 50%;
+  background-color: #FC8E8E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 40rpx;
+}
+.photo-img{
+  width: 109rpx;
+  height: 109rpx;
+  border-radius: 50%;
+}
+.nickname{
+  font-size: 30rpx;
+  letter-spacing: 2rpx;
+  color: #ffffff;
+  margin-left: 42rpx;
+}
+.icon-huiyuan{
+  color: #fffb95;
+  display: flex;
+  margin-left: 16rpx;
+}
+.van-tabs__wrap{
+  border-bottom: solid 2rpx #e8e8e8 !important;
+}
+.van-tabs__scroll {
+  background-color: transparent !important;
+}
+
+.van-tab--active {
+  font-size: 32rpx !important;
+  color: #e72828 !important;
+}
+
+.van-tabs__line {
+  background-color: #e72828 !important;
+}
+.member-info{
+  padding: 70rpx 0rpx 70rpx 50rpx;
+}
+.every-info{
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  padding: 28rpx 0rpx;
+
+}
+.every-info .iconfont{
+  color: #e72828;
+  font-size: 26rpx;
+  display: flex;
+}
+.every-info .input-title{
+  width: 16%;
+  color: #333333;
+  margin-left: 12rpx;
+  margin-right: 30rpx;
+  font-size: 28rpx;
+  margin-top: -2rpx;
+}
+.every-info .input{
+  width: 429rpx;
+  height: 32rpx;
+	border-radius: 20rpx;
+  border: solid 1rpx #d0d0d0;
+  color: #323233;
+  padding-left: 30rpx;
+}
+.every-info .pla{
+  color: #ccc;
+}
+.every-info .van-radio-group {
+  display: flex;
+  align-items: center;
+}
+ .radio-icon .van-radio {
+  padding-right: 116rpx;
+  display: flex;
+}
+.van-radio__icon{
+  font-size: 32rpx !important;
+}
+.van-dropdown-menu{
+  width: 429rpx;
+  height: 45rpx !important;
+  background-color: #dad7d721 !important;
+	border-radius: 20rpx;
+  border: solid 1rpx #d0d0d0;
+  color: #666666;
+  padding-left: 30rpx;
+}
+.van-dropdown-menu__title{
+  margin-left: -345rpx !important;
+  font-size: 28rpx !important;
+
+}
+.van-dropdown-menu__title:after {
+  right: -150px !important;
+}
+.history-box,.buy-box{
+  margin-top: 30rpx;
+}
+
+.history-item{
+  padding: 20rpx 50rpx 20rpx 70rpx;
+  border-bottom: solid 1rpx #e8e8e8;
+  display: flex;
+  height: 136rpx;
+  /* justify-content: center; */
+  align-items: center;
+}
+.history-item:last-child{
+  border-bottom:none;
+}
+.history-item .history-l{
+  width: 153rpx;
+  height: 110rpx;
+	background-color: #999999;
+  border-radius: 6rpx;
+  display: flex;
+  flex: none;
+}
+.history-item .history-r{
+  padding-left: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  /* width: 70%; */
+}
+.history-item .history-r .r-content{
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+.history-item .history-r .r-content .r-title{
+	font-size: 26rpx;
+  color: #333333;
+  width: 370rpx;
+}
+.history-item .history-r .r-content .r-sub{
+  font-size: 22rpx;
+  color: #666666;
+  padding-left: 10rpx;
+  width: 370rpx;
+  padding-top: 6rpx;
+}
+.history-item .history-r .r-content .r-operation{
+  font-size: 22rpx;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  padding-left: 10rpx;
+  padding-top: 16rpx;
+}
+.history-item .history-r .r-content .r-operation .icon-lishibofang,.icon-qian1,.icon-erji{
+  font-size: 24rpx;
+  display: flex;
+  color: #e82d2d;
+  margin-right: 6rpx;
+}
+.history-item .history-r .r-content .r-operation .num{
+  margin-left: 6rpx;
+}
+.history-item .history-r .r-content .r-operation .bar{
+  padding: 0 20rpx;
+}
+.history-item .history-r .r-del{
+ color: #999;
+ font-size: 24rpx;
+ display: flex;
+}
+.bar1{
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+}
+.vip-operation{
+  padding-left: 0rpx !important;
+  padding-top: 36rpx !important;
+}
+.change-btn{
+  width: 551rpx;
+	height: 60rpx;
+	background-image: linear-gradient(0deg, 
+		#ec5352 0%, 
+		#fa8d8e 100%);
+  border-radius: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+  margin-top: 40rpx;
+  margin-left: 50rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+  
+}

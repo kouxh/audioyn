@@ -1,0 +1,46 @@
+<view class="pages-column-index">
+  <view class="header-box">
+    <view class="input-box">
+      <icon class="iconfont icon-sousuo search"></icon>
+      <input class="input-img" disabled type="text" bind:tap='toSearch' />
+    </view>
+    <view class="title-box">
+      <image mode="aspectFill"  wx:if="{{columnId==4}}" src='/assets/img/column1.png' class="item-img img"></image>
+      <image mode="aspectFill" wx:if="{{columnId==3}}" src='/assets/img/column2.png' class="item-img img"></image>
+      <image mode="aspectFill" wx:if="{{columnId==2}}" src='/assets/img/column3.png' class="item-img img"></image>
+      <image mode="aspectFill" wx:if="{{columnId==5}}" src='/assets/img/column4.png' class="item-img img"></image>
+      <image mode="aspectFill" wx:if="{{columnId==1}}" src='/assets/img/column5.png' class="item-img img"></image>
+      <view class="title">{{columnName}}</view>
+      <view class="total">共{{total}}更新</view>
+      <van-tabs active="{{ active }}" bind:change="onChange">
+        <van-tab title="全部"></van-tab>
+        <van-tab title="推荐"></van-tab>
+      </van-tabs>
+    </view>
+  </view>
+  <view class="magazine-box">
+    <!-- 加载中 -->
+    <view class="content-box" wx:if="{{listShowType==0}}">
+      <van-loading type="spinner" class="loading" />
+    </view>
+    <!-- 有内容 -->
+    <view class="content-box" wx:if="{{listShowType==1}}">
+      <item-list listData='{{listData}}'></item-list>
+      <view class="loaded-tips" wx:if="{{!finished}}">
+        下滑加载更多
+        <icon class="iconfont icon-xiangxiajiantou1 jiantou"></icon>
+        <icon class="iconfont icon-xiangxiajiantou jiantou1"></icon>
+      </view>
+      <view class="loaded-tips" wx:if="{{finished}}">我是有底线的o(╥﹏╥)o</view>
+    </view>
+    <!-- 无内容 -->
+    <view class="content-box" wx:if="{{listShowType==2}}">
+      <view class="nomsg-img-box">
+        <image mode='aspectFill'
+          src="https://march.yuanian.com/static/assets/img/none.png" alt
+          class="nomsg-img" />
+        <view class="tips-msg">暂无数据记录</view>
+      </view>
+    </view>
+  </view>
+</view>

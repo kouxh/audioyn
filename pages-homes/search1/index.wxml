@@ -1,0 +1,56 @@
+<view class="pages-search-index">
+  <view class="header-box">
+    <view class="input-box">
+      <icon class="iconfont icon-sousuo search"></icon>
+      <input class="input-img" ttype="text" value="{{searchContent}}" placeholder=""  bindinput="handleInputChange"  />
+      <icon class="iconfont icon-qingchu clear" hidden="{{!searchContent}}" bindtap="handleClear"></icon>
+    </view>
+  </view>
+  <!-- 搜索列表 -->
+  <view class="search-list" wx:if="{{isSearch}}">
+    <!-- 加载中 -->
+    <view class="content-box" wx:if="{{listShowType==0}}">
+      <van-loading type="spinner" class="loading" />
+    </view>
+    <!-- 有内容 -->
+    <view class="content-box" wx:if="{{listShowType==1}}">
+      <item-list listData='{{searchList}}'></item-list>
+      <view class="loaded-tips" wx:if="{{!finished}}">
+        下滑加载更多
+        <icon class="iconfont icon-xiangxiajiantou1 jiantou"></icon>
+        <icon class="iconfont icon-xiangxiajiantou jiantou1"></icon>
+      </view>
+      <view class="loaded-tips" wx:if="{{finished}}">我是有底线的o(╥﹏╥)o</view>
+    </view>
+    <!-- 无内容 -->
+    <view class="content-box" wx:if="{{listShowType==2}}">
+      <view class="nomsg-img-box">
+        <image mode='aspectFill'
+          src="https://march.yuanian.com/static/assets/img/none.png" alt
+          class="nomsg-img" />
+        <view class="tips-msg">暂无数据记录</view>
+      </view>
+    </view>
+  </view>
+  <!-- 暂无搜索 -->
+  <view class="no-search-box" wx:else>
+    <!-- 热门搜索 -->
+    <view class="hotContainer">
+      <view class="title">热门搜索</view>
+      <view class="hotList">
+        <view wx:for="{{hotList}}" wx:key="item" class="hotItem" bindtap="searchHot"
+        data-hotword="{{item}}">{{item}}</view>
+      </view>
+    </view>
+    <!-- 推荐列表 -->
+    <view class="recommend-box">
+      <view class="recommend-title">
+        <icon class="iconfont icon-tuijian"></icon>
+        <text class="text">推荐</text>
+      </view>
+      <view class="magazine-box">
+        <item-list listData='{{listData}}'></item-list>
+      </view>
+    </view>
+  </view>
+</view>

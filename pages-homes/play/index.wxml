@@ -1,0 +1,186 @@
+<view class="pages-play-index">
+  <!-- <view class="{{item.id===musicId ? 'playing':''}}"></view> -->
+  <view class="header-box">
+    <view class="header-content">
+      <view class="content-l">
+        <image mode="aspectFill"  src="{{userInfo.photo?userInfo.photo:'/assets/img/photo.png'}}" class=" photo-img img"></image>
+      </view>
+      <view class="content-r">
+        <text class="r-title ellipsis1row">广告语碎片时间·赋能···</text>
+        <text class="r-column">{{playData.mwc_title}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="player-info">
+    <view class="title-box">
+      <view class="title">{{playData.mwa_title}}</view>
+      <view class="author">作者:{{playData.mwa_author}}</view>
+    </view>
+    <!-- 转盘 -->
+    <view class="player-disc {{isPlay && 'discAnimation'}}">
+      <image class="player-img" src="/assets/img/book.png"></image>
+    </view>
+    <!-- 摇杆 -->
+    <image class="needle {{isPlay && 'needleRotate'}}" src="/assets/img/erji.png"></image>
+    <view class="circle"></view>
+    <!-- 声波 -->
+    <view style="display:{{isPlay ?'': 'none'}}">
+      <view class="circle1"></view>
+      <view class="circle2"></view>
+      <view class="circle3"></view>
+    </view>
+    <button  class="share-box" hover-class="none" open-type="share">
+      <icon class="iconfont icon-fenxiang1 share"></icon>
+      <text class="text">一键分享</text>
+    </button>
+    <view class='progress'>
+      <text>{{progressText}}</text>
+      <slider class='bar' bindchange="sliderChange" value="{{progress}}" step="1" min='0' max='{{duration}}'
+        activeColor="#f67979" block-size="12" block-color="#ffffff" />
+      <text>{{durationText}}</text>
+    </view>
+    <view class="control">
+      <view class="item" bindtap="collectFn">
+        <icon class="iconfont icon-xin {{isCollect ? 'collect' :''}}"></icon>
+        <text class="word">收藏</text>
+      </view>
+      <view class="item">
+        <icon class="iconfont icon-top-music"  bindtap="lastMusic"></icon>
+        <text class="word">上一章</text>
+      </view>
+      <view class="item">
+        <icon class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}}" bindtap="handleMusicPlay"></icon>
+      </view>
+      <view class="item">
+        <icon class="iconfont icon-next-music"  bindtap="nextMusic"></icon>
+        <text class="word">下一章</text>
+      </view>
+      <view class="item" catchtap="onMenuList">
+        <icon class="iconfont icon-bodanliebiao-"></icon>
+        <text class="word">播单</text>
+      </view>
+    </view>
+    <view class="btn-box">
+      <navigator hover-class="none" open-type="switchTab"url="/pages/home/index" class="back-home">回到首页</navigator>
+      <navigator hover-class="none" url="/pages-homes/feedback/index" class="feedback">意见反馈</navigator>
+    </view>
+  </view>
+  <!-- 付费弹框 -->
+  <van-popup show="{{ payShow }}" bind:close="onClose" round closeable close-on-click-overlay="{{false}}"
+    catchtouchmove="true">
+    <view class="popup-pay">
+      <view class="popup-tit">试听结束，付费<text class="price">{{playData.mwa_price}}</text>元听完整音频</view>
+      <view class="pay-btn">
+        <image src="/assets/img/shengbo.png" mode='aspectFill' alt="" class="shengbo-img"></image>
+        <view class="button" catchtap="singlePay">支付</view>
+        <image src="/assets/img/shengbo.png" mode='aspectFill' alt="" class="shengbo-img"></image>
+      </view>
+      <view class="tip" catchtap="vipShowFn">3元开通会员，畅听全场音频</view>
+    </view>
+  </van-popup>
+  <!-- 播单列表弹框 -->
+  <van-popup show="{{ menuShow }}" round position="bottom" custom-style="height: 430px;" bind:close="onCloseMenu" catchtouchmove="true">
+    <view class="menu-box">
+      <view class="menu-header" catchtap="onVipShow">
+          <icon class="iconfont icon-huiyuan"></icon>
+          <text class="vip">仅需3元开通会员，即可畅听本专辑！</text>
+      </view>
+      <view class="list-box">
+        <view class="tabs-box">
+          <view class="tabs-l">
+            <view class="tabs-item {{currentTabs==0?'active':''}}" data-id="0" catchtap="onTabs">
+              <icon class="iconfont icon-dangqianbofang1"></icon>
+              <view>当前播放</view>
+            </view>
+            <view class="tabs-item {{currentTabs==1?'active':''}}" data-id="1" catchtap="onTabs">
+              <icon class="iconfont icon-lishi"></icon>
+              <view>播放历史</view>
+            </view>
+          </view>
+          <view class="tabs-r" wx:if="{{currentTabs==0}}">
+
+            <view class="order" wx:if="{{!isInverted}}" bindtap="back">
+              <icon class="iconfont icon-22daoxu"></icon>
+              <text >顺序播放</text>
+            </view>
+            <view class="order" wx:else bindtap="just">
+              <icon class="iconfont icon-liebiaodaoxu"></icon>
+              <text >倒序播放</text>
+            </view>
+          </view>
+        </view>
+        <view class="content-box">
+          <scroll-view scroll-y hidden="{{currentTabs!=0}}" style="height:580rpx;">
+            <view class="menu-list">
+            <block wx:for="{{menuData}}" wx:key="index">
+              <view class="item-list {{item.mwa_id==musicId ? 'playing':''}}" catchtap="onSelect" data-musicid="{{item.mwa_id}}" data-index="{{index}}">
+                <view class="list-l">
+                  {{item.mwa_title}}
+                </view>
+                <view class="list-r">{{item.status}}</view>
+                <!-- <view class="list-r">{{item.mwa_id==musicId ? '播放中': item.status==0?'':'已播完'}}</view> -->
+              </view>
+            </block>
+              
+              <!-- <view class="item-list">
+                <view class="list-l">
+                  第15章   《管理会计研究》第一期_015
+                </view>
+                <view class="list-r">已播完</view>
+              </view>
+              <view class="item-list">
+                <view class="list-l">
+                  第15章   《管理会计研究》第一期_015
+                </view>
+                <view class="list-r">已播完</view>
+              </view> -->
+            </view>
+          </scroll-view>
+          <scroll-view scroll-y hidden="{{currentTabs!=1}}" style="height:580rpx;"> 
+            <view class="history-box">
+              <!-- 加载中 -->
+              <view wx:if="{{listShowType==0}}">
+                <van-loading type="spinner" class="loading" />
+              </view>
+              <view wx:if="{{listShowType==1}}">
+                <block wx:for="{{historyData}}" wx:key="id">
+                  <navigator class="history-item" hover-class="none" url="/pages-homes/play/index?mwaId={{item.mwrl_id}}">
+                    <view class="history-l">
+                      <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
+                    </view>
+                    <view class="history-r">
+                      <view class="r-content">
+                        <view class="r-title ellipsis1row">{{item.mwa_title}}</view>
+                        <!-- <view class="r-sub ellipsis1row">{{item.sub}}</view> -->
+                        <view class="r-operation">
+                          <icon class="iconfont icon-lishibofang "></icon>
+                          <text class="time">10:00</text>
+                          <text class="bar">|</text>
+                          <text>已播放{{item.mwrl_speed}}</text>
+                          <text class="bar">|</text>
+                          <text>{{item.mwa_author}}</text>
+                        </view>
+                      </view>
+                      <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
+                    </view>
+                  </navigator>
+                </block>
+              </view>
+                <!-- 无内容 -->
+                <view  wx:if="{{listShowType==2}}">
+                  <view class="nomsg-img-box">
+                    <image mode='aspectFill'
+                      src="https://march.yuanian.com/static/assets/img/none.png" alt
+                      class="nomsg-img" />
+                    <view class="tips-msg">暂无数据记录</view>
+                  </view>
+                </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+  </van-popup>
+  <!-- 购买会员弹框 -->
+  <vip-open wx:if="{{vipShow}}" bind:vipShowClose="vipShowClose"></vip-open>
+</view>

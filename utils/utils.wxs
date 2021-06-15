@@ -1,0 +1,4 @@
+module.exports = {
+  setImgUrl: "https://www.chinamas.cn",
+  networkImgUrl:'https://www.chinamas.cn',
+};

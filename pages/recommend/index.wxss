@@ -1,0 +1,18 @@
+/* pages/recommend/index.wxss */
+
+.pages-ranking-index{
+  width: 100%;
+  height: 100vh;
+}
+
+.header-banner {
+  width: 100%;
+  height: 290rpx;
+  background-image: url("https://march.yuanian.com/static/assets/img/search1.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+
+}
+.magazine-box{
+  margin: -250rpx 52rpx 0rpx 52rpx;
+}

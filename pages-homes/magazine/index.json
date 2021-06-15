@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-loading": "@vant/weapp/loading/index",
+    "item-list":"/components/list/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index"
+  },
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance":100
+}

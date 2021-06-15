@@ -1,0 +1,74 @@
+/* pages-homes/feedback/index.wxss */
+.pages-feedback-index {
+  width: 100%;
+  height: 100vh;
+}
+.textArea-title{
+  display: flex;
+  align-items: center;
+  padding-top: 30rpx;
+  margin-left: 52rpx;
+}
+.question-title{
+  display: flex;
+  align-items: center;
+}
+.iconfont{
+  color: #e73128;
+  font-size: 24rpx;
+  display: flex;
+}
+
+.textArea-box{
+  width: 600rpx;
+	height: 322rpx;
+	border-radius: 3rpx;
+	border: solid 1rpx #999999;
+  padding: 20rpx;
+  margin: 0 auto;
+  margin-top: 30rpx;
+  font-size:28rpx;
+}
+.feed-phd {
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #999999;
+}
+.textarea {
+  width: 100%;
+  height: 100%;
+}
+.question-box{
+padding: 50rpx 60rpx;
+}
+.title{
+  font-size: 28rpx;
+  color: #333;
+  margin-left: 20rpx;
+}
+.input-upload {
+  display: flex;
+  flex-wrap: wrap;
+}
+.van-uploader{
+  margin-top: 30rpx;
+}
+.fooder-btn {
+  font-size: 28rpx;
+  color: #fff;
+  background: #f44;
+  width: 403rpx;
+	height: 60rpx;
+	background-image: linear-gradient(0deg, 
+		#ec5352 0%, 
+		#fa8d8e 100%);
+  border-radius: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  margin: 0 auto;
+  margin-top: 300rpx;
+}
+.van-uploader__upload,.van-uploader__preview-image{
+  width: 260rpx !important;
+	height: 225rpx !important;
+}

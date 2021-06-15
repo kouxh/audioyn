@@ -1,0 +1,409 @@
+/* pages/home/index.wxss */
+page{
+  background-color: #f3f4f6;
+}
+.pages-home-index {
+  width: 100%;
+  height: 100vh;
+}
+
+.common {
+  width: 100%;
+  background-color: #FCFCFC;
+  margin: 0 auto;
+  margin-bottom: 10rpx;
+}
+
+.header-box {
+  padding-bottom:40rpx;
+}
+
+.header-banner {
+  width: 100%;
+  height: 290rpx;
+  background-image: url("https://march.yuanian.com/static/assets/img/banner.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.input-box {
+  padding: 40rpx 52rpx;
+  position: relative;
+}
+
+.search {
+  position: absolute;
+  /* top: 24rpx; */
+  left: 60rpx;
+  color: #F28883;
+  top: 38rpx;
+  font-size: 45rpx;
+}
+
+.input-img {
+  /* width: 647rpx; */
+  height: 50rpx !important;
+  border-radius: 30rpx;
+  border: solid 2rpx #F28883;
+  padding-left: 50rpx;
+  font-size: 22rpx;
+}
+
+.van-tabs {
+  margin-top: -12px;
+}
+
+.van-tabs__scroll {
+  background-color: transparent !important;
+}
+
+.van-tab--active {
+  font-size: 36rpx !important;
+}
+
+.van-tabs__line {
+  background-color: #fff !important;
+}
+
+.swiperBox {
+  width: 647rpx;
+  height: 243rpx;
+  background-color: #767676;
+  box-shadow: 0rpx 2rpx 16rpx 0rpx rgba(40, 40, 40, 0.6);
+  border-radius: 14rpx;
+  overflow: hidden;
+  margin: 0 auto;
+  /* margin-top: -95rpx; */
+  margin-top: -160rpx;
+
+}
+.dots{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 22rpx;
+  justify-content: center;
+}
+.dot{
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background-color: #e8e8e8;
+}
+.dot-r{
+  margin-right: 20rpx;
+}
+.active-dot{
+  width: 22rpx;
+	height: 10rpx;
+	background-image: linear-gradient(268deg, 
+		#fa6d66 0%, 
+		#ffc8c5 100%);
+	border-radius: 4rpx;
+}
+
+
+.tabs-box {
+  display: flex;
+  padding: 14px 20rpx 0rpx 20rpx;
+}
+
+.tabs-item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100rpx;
+  padding-top: 12rpx;
+  color: #e4e6ef;
+}
+
+.item-img {
+  width: 60rpx;
+  height: 61rpx;
+}
+
+.item-text {
+  font-size: 26rpx;
+  line-height: 32rpx;
+  color: #333333;
+  padding-top: 8rpx;
+}
+
+.listen-box {
+  height: 310rpx;
+}
+
+.title-box {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 0rpx 30rpx 0rpx;
+}
+
+.tit-tip {
+  width: 5rpx;
+  height: 21rpx;
+  background-color: #e73128;
+}
+
+.listenScroll {
+  display: flex;
+  height: 200rpx;
+}
+.listenScroll-box{
+  display: flex;
+  padding: 0 48rpx;
+}
+.scrollItem {
+  width: 400rpx;
+  height: 125rpx;
+  background-color: #ffffff;
+  box-shadow: 0rpx 0rpx 15rpx 0rpx rgba(153, 153, 153, 0.15);
+  border-radius: 9rpx;
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  margin-right: 22rpx;
+}
+.scrollItem:last-child{
+  margin-right: 0rpx;
+} 
+
+.scrollItem-r {
+  height: 125rpx;
+  margin-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.r-title1 {
+  width: 200rpx;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  letter-spacing: 1rpx;
+  color: #333333;
+}
+
+.plan {
+  font-size: 22rpx;
+  line-height: 36rpx;
+  letter-spacing: 0rpx;
+  color: #e73128;
+  margin-top: 10rpx;
+}
+
+/* cmas新推荐 */
+.recommend-box {
+  padding-bottom: 18rpx;
+}
+
+.hot-box {
+  width: 670rpx;
+  height: 199rpx;
+  background-image: url("https://march.yuanian.com/static/assets/img/hot.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+  margin-bottom: 12rpx;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+
+.hot-l {
+  display: flex;
+  flex-direction: column;
+}
+
+.hot-tit {
+  font-size: 24rpx;
+  line-height: 36rpx;
+  letter-spacing: 0rpx;
+  color: #333333;
+  margin-top: 13px;
+  width: 350rpx;
+}
+
+.hot-author {
+  font-size: 20rpx;
+  line-height: 22rpx;
+  color: #666666;
+}
+.hot-describe{
+  width: 378rpx;
+    position: absolute;
+    top: 100rpx;
+    left: 95rpx;
+}
+
+.hot-r {
+  width: 107rpx;
+  height: 150rpx;
+  box-shadow: 2rpx 4rpx 11rpx 0rpx rgba(60, 60, 60, 0.15);
+  background-color: #999;
+  display: flex;
+}
+
+.rd-title {
+  font-size: 30rpx;
+  letter-spacing: 0rpx;
+  color: #000;
+  margin-left: 48rpx;
+}
+
+.each-item {
+  width: 584rpx;
+  height: 127rpx;
+  background-color: #ffffff;
+  box-shadow: 0rpx 0rpx 15rpx 0rpx rgba(153, 153, 153, 0.15);
+  border-radius: 9rpx;
+  margin: 0 auto;
+  margin-bottom: 24rpx;
+  padding: 20rpx 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.item-l {
+  width: 174rpx;
+  height: 129rpx;
+  background-color: #999999;
+  border-radius: 6rpx;
+  display: flex;
+  flex: none;
+}
+
+.item-r {
+  width: 390rpx;
+  height: 120rpx;
+  margin-left: 28rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.r-title {
+  /* width: 330rpx; */
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  line-height: 36rpx;
+  letter-spacing: 1rpx;
+  color: #333333;
+}
+
+.r-base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.l-box {
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+  letter-spacing: 0rpx;
+  color: #666666;
+}
+
+.l-box .num {
+  margin-left: 14rpx;
+}
+
+.l-box .bar {
+  width: 2rpx;
+  height: 21rpx;
+  background-color: #e8e8e8;
+  margin: 0rpx 18rpx;
+}
+
+.magazine-box {
+  height: 360rpx;
+}
+
+.mz-content {
+  margin: 0 auto;
+}
+
+.mz-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-r {
+  font-size: 22rpx;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  margin-right: 60rpx;
+}
+
+.more {
+  display: flex;
+  font-size: 19rpx;
+  color: #e72828;
+  margin-left: 6px;
+}
+
+.mz-box {
+  display: flex;
+  padding: 0rpx 30rpx 0rpx;
+}
+
+.mz-item {
+  display: flex;
+  /* flex: 1; */
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  /* width: 160rpx; */
+}
+
+.mz-item-img {
+  width: 134rpx;
+	height: 155rpx;
+	background-color: #999999;
+	border-radius: 9rpx;
+}
+
+.mz-item-title {
+  font-size: 20rpx;
+  line-height: 32rpx;
+  color: #333333;
+  padding-top: 8rpx;
+}
+
+.mz-item-sub {
+  font-size: 20rpx;
+  color: #666666;
+  width: 138rpx;
+}
+
+.list-box {
+  padding: 0rpx 52rpx 30rpx;
+  margin-top: -20rpx;
+}
+/* 禁止scroll-view 滚动条 */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  }
+
+.list-item {
+  font-size: 24rpx;
+  line-height: 36rpx;
+  color: #333333;
+}
+.mean{
+  font-size: 22rpx;
+  color: #e73128;
+  margin-right: 10rpx;
+}
+.column{
+  font-size: 20rpx;
+	color: #666666;
+}

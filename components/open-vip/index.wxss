@@ -1,0 +1,82 @@
+/* components/open-vip/index.wxss */
+@import "/app.wxss";
+
+.vip-box {
+  padding: 0 30rpx;
+}
+
+.vip-title {
+  width: 500rpx;
+  height: 50rpx;
+  background-color: #ec5352;
+  box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(51, 51, 51, 0.3);
+  border-radius: 0rpx 0rpx 30rpx 30rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vip-title .icon-huiyuan {
+  display: flex;
+  padding-right: 16rpx;
+}
+
+.vip-type {
+  padding: 30rpx 0rpx;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.vip-type .item-type {
+  width: 158rpx;
+  height: 170rpx;
+  background-color: #ffffff;
+  box-shadow: 0rpx 0rpx 12rpx 0rpx rgba(51, 51, 51, 0.15);
+  border-radius: 9rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.type-name {
+  font-size: 22rpx;
+  color: #333333;
+}
+
+.type-price {
+  font-size: 40rpx;
+  color: #ec5352;
+  padding-top: 10rpx;
+}
+.price{
+  margin-left: -4rpx;
+}
+
+.symbol {
+  font-size: 24rpx;
+  margin-left: -10rpx;
+}
+
+.submit {
+  width: 659rpx;
+  height: 60rpx;
+  background-image: linear-gradient(0deg,
+      #ec5352 0%,
+      #fa8d8e 100%);
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  color: #ffffff;
+  line-height: 60rpx;
+  text-align: center;
+  letter-spacing: 1rpx;
+}
+
+.type-action {
+  background-color: #fff6f6 !important;
+  border: solid 1rpx #ec5352;
+}

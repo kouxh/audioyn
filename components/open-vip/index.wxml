@@ -1,0 +1,24 @@
+<view class="open-vip-box">
+  <van-popup show="{{ vipShow }}" round position="bottom" custom-style="height: 30%" bind:close="onClose">
+    <view class="vip-box">
+      <view class="vip-title">
+        <icon class="iconfont icon-huiyuan"></icon>
+        <text>开通CMAS随时听会员，畅听全场音频</text>
+      </view>
+      <view class="vip-type">
+        <block wx:for="{{typeData}}" wx:key='index'>
+          <view class="item-type {{activeType==index?'type-action':''}}" data-idx="{{index}}"
+          data-id="{{item.mwv_id}}" catchtap="typeChange">
+            <view class="type-name">{{item.mwv_title}}VIP畅听</view>
+            <view class="type-price">
+              <icon class="symbol">￥</icon>
+              <text class="price">{{item.mwv_price}}</text>
+            </view>
+          </view>
+        </block>
+
+      </view>
+      <view class="submit" catchtap="onSubmit">立即开通VIP会员</view>
+    </view>
+  </van-popup>
+</view>

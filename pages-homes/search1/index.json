@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "item-list":"/components/list/index",
+    "van-loading": "@vant/weapp/loading/index"
+  }
+}

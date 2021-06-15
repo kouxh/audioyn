@@ -1,0 +1,91 @@
+<!--logs.wxml-->
+<view class="container log-list">
+  <block wx:for="{{logs}}" wx:key="timeStamp" wx:for-item="log">
+    <text class="log-item">{{index + 1}}. {{log.date}}</text>
+  </block>
+  
+</view>
+<view>
+  <slider bindchange="slider1change" value="{{progress}}" step="1" min='0' max='{{duration}}' show-value activeColor="#1aad19" block-size="12" block-color="#1aad19"/>
+  <!-- 页面内容 -->
+  <swiper class="tab-box"  interval="2000" snap-to-edge="{{true}}" current="{{2}}"  autoplay="{{false}}" previous-margin='20px' next-margin="20px">        
+        <swiper-item wx:for="{{[0,1,2,3,4,5,6,7,8]}}" wx:for-item="tabItem" wx:for-index="idx" wx:key="idx" class="tab-content">
+            {{tabItem}}
+        </swiper-item>
+    </swiper>
+      <swiper
+        previous-margin="20"
+        next-margin="20" 
+        interval="2000"
+        circular="{{true}}"
+        autoplay="{{true}}"
+        bindchange="changeSwiper"
+        class="banner">
+        <block wx:for="{{propData}}" wx:key="key">
+          <swiper-item>
+            <view  class="box {{currentIndex == index ? 'active': ''}}">
+              <image class=" {{currentIndex == index ? 'active': ''}}" src="{{item.images_url}}" mode="aspectFill" data-value="{{item.event_value}}" data-type="{{item.event_type}}" bindtap="banner_event" />
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="container">
+      <view style="font-size:32rpx;color:#aaa">间距轮播图</view>
+      <swiper style="width:100%;height:360rpx;margin-top:50rpx;" bindchange="changeSwiper"  previous-margin="40"
+        next-margin="40" 
+        interval="2000"
+        circular="{{true}}"
+        autoplay="{{true}}">
+        <block wx:for="{{propData}}" wx:key="key">
+          <swiper-item class="swiperItem">
+            <image mode="aspectFill" src='{{item.images_url}}' class="imageItem {{currentIndex == index ? 'active': ''}}"> </image>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+</view>
+<view class="tui-content">
+ <view class="tui-menu-list" wx:for="{{newList}}" wx:key='index'>Item -- {{item}}</view>
+ <view bindtap="moreFn" wx:if="{{loading}}">点击加载更多</view>
+
+<!-- 
+ <button class="ripple">页面主操作 Normal</button>
+ <view class="ripple" style="{{rippleStyle}}"></view>
+<view class="container" bindtouchstart='containerTap1'></view> -->
+<view class="body">
+  <view class="circle"></view>
+  <view class="circle1"></view>
+  <view class="circle2"></view>
+  <view class="circle3"></view>
+</view>
+
+<!-- <view class="loading">
+    <view class="box">
+        <view class="action">
+            <image src="/assets/img/home/guanli.png" />
+            <view class="children-view"></view>
+            <view class="children-view"></view>
+        </view>
+    </view>
+</view> -->
+</view>
+
+
+
+<!-- pages/collect/index.wxml
+<text>pages/collect/index.wxml</text>
+
+<view class="tui-content" >
+  <view class="title">
+    <van-tabs active="{{ active }}" bind:change="onChange" swipeable title-active-color="#ee0a24">
+    <van-tab title="排行榜">排行榜</van-tab>
+    <van-tab title="免费">免费</van-tab>
+    <van-tab title="搜索">搜索 </van-tab>
+  </van-tabs>
+  <van-search wx-if="{{active==2}}" value="{{ value }}" bind:change="onSearch" placeholder="请输入关键词" /> -->
+  <!-- <input wx-if="{{active==2}}" type="text" bindinput="accountFn" value="{{account}}" class="input-box"/> -->
+  <!-- </view>
+  
+ <view class="tui-menu-list" wx:for="{{newList}}" wx:key='index'>Item -- {{item}}</view>
+ <view bindtap="moreFn" wx:if="{{loading}}" style="height:200rpx">点击加载更多</view>
+</view> -->

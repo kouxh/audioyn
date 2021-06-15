@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-popup": "@vant/weapp/popup/index",
+    "vip-open":"/components/open-vip/index",
+    "van-loading": "@vant/weapp/loading/index"
+  }
+}

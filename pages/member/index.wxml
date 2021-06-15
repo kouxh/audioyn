@@ -1,0 +1,207 @@
+<!--pages/member/index.wxml-->
+<view class="pages-member-index">
+  <view class="member-header">
+    <view class="photo-box">
+      <image mode='aspectFill' src="{{userInfo.photo?userInfo.photo:'/assets/img/photo.png'}}" alt class="photo-img" />
+    </view>
+    <view class="nickname">{{userInfo.account?userInfo.account:'昵称昵称'}}</view>
+    <icon class="iconfont icon-huiyuan"></icon>
+  </view>
+  <view class="member-content">
+    <view class="tabs-box">
+      <van-tabs active="{{ tabsActive }}" bind:change="onChange">
+        <van-tab title="个人信息"></van-tab>
+        <van-tab title="我的收藏"></van-tab>
+        <van-tab title="最近收听"></van-tab>
+        <van-tab title="购买记录"></van-tab>
+      </van-tabs>
+    </view>
+    <view class="tabs-content">
+      <view class="member-info" wx:if="{{tabsActive==0}}">
+        <view class="every-info">
+          <icon class="iconfont icon-xingmingyonghumingnicheng"></icon>
+          <text class="input-title">真实姓名</text>
+          <input class="input" value="{{info.name=='0'?'':info.name}}" type="text" placeholder="请输入姓名"
+            bindinput="handleInput" placeholder-class="pla" id="info.name" />
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-jieting"></icon>
+          <text class="input-title">注册手机</text>
+          <input class="input" type="number" value="{{info.tell}}" maxlength="11" placeholder="请输入手机号"
+            bindinput="handleInput" id="info.tell" placeholder-class="pla" disabled/>
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-youxiang"></icon>
+          <text class="input-title">注册邮箱</text>
+          <input class="input" type="text" value="{{info.email=='0'?'':info.email}}" placeholder="请输入邮箱"
+            bindinput="handleInput" id="info.email" placeholder-class="pla" />
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-xingbie"></icon>
+          <text class="input-title">性别</text>
+          <van-radio-group value="{{ info.sex }}" bind:change="onSwitch" class="radio-icon">
+            <van-radio name="0" checked-color="#e72828">男</van-radio>
+            <van-radio name="1" checked-color="#e72828">女</van-radio>
+          </van-radio-group>
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-shengri"></icon>
+          <text class="input-title">生日</text>
+          <input class="input" type="text" value="{{ info.birthday=='0'?'':info.birthday }}" placeholder="YYYY-MM-DD"
+            placeholder-class="pla" bindtap="onDisplay" disabled />
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-nianlingduan"></icon>
+          <text class="input-title">年龄段</text>
+          <van-dropdown-menu>
+            <van-dropdown-item value="{{ ageValue }}" options="{{ option1 }}" bind:change="itemChange" />
+          </van-dropdown-menu>
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-gongsimingcheng"></icon>
+          <text class="input-title">公司名称</text>
+          <input class="input" type="text" value="{{ info.company=='0'?'':info.company}}" placeholder="请输入公司名称"
+            bindinput="handleInput" id="info.company" placeholder-class="pla" />
+        </view>
+        <view class="every-info">
+          <icon class="iconfont icon-gongsimingcheng"></icon>
+          <text class="input-title">职位</text>
+          <van-dropdown-menu >
+            <van-dropdown-item value="{{ occValue }}" options="{{ occOption }}" bind:change="occOptionChange" />
+          </van-dropdown-menu>
+        </view>
+        <view class="change-btn" bindtap="changeInfo">提交</view>
+      </view>
+      <view class="history-box" wx:elif="{{tabsActive!=0}}">
+        <!-- 加载中 -->
+        <view wx:if="{{listShowType==0}}">
+          <van-loading type="spinner" class="loading" />
+        </view>
+        <!-- 有内容 -->
+        <view wx:if="{{listShowType==1}}">
+          <block wx:for="{{dataList}}" wx:key="id">
+            <view class="history-item">
+              <view class="history-l">
+                <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
+              </view>
+              <view class="history-r">
+                <view class="r-content">
+                  <view class="r-title ellipsis1row">{{item.mwa_title}}</view>
+                  <!-- <view class="r-sub ellipsis1row">{{item.sub}}</view> -->
+                  <view class="r-operation" wx:if="{{tabsActive==1}}">
+                    <icon class="iconfont icon-erji "></icon>
+                    <text class="num">2万</text>
+                    <text class="bar">|</text>
+                    <text>{{item.author}}</text>
+                  </view>
+                  <view class="r-operation" wx:elif="{{tabsActive==2}}">
+                    <icon class="iconfont icon-lishibofang "></icon>
+                    <text class="time">10.00</text>
+                    <text class="bar">|</text>
+                    <text>已播放{{item.mwrl_speed}}</text>
+                    <text class="bar">|</text>
+                    <text>{{item.mwa_author}}</text>
+                  </view>
+                  <view class="r-operation" wx:else="{{tabsActive==3}}">
+                    <icon class="iconfont icon-qian1 "></icon>
+                    <text class="time">共计：￥{{item.price}}</text>
+                    <text class="bar1">|</text>
+                    <text>购买时间：{{item.time}}</text>
+                  </view>
+                </view>
+                <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
+              </view>
+            </view>
+          </block>
+          <view class="history-item" wx:if="{{tabsActive==3&&vipData}}">
+            <view class="history-l">
+              <image mode='aspectFill' src="/assets/img/vip-img.png" alt class="img" />
+            </view>
+            <view class="history-r">
+              <view class="r-content">
+                <view class="r-title ellipsis1row">CMAS随时听会员{{vipData.title}}</view>
+                <view class="r-operation vip-operation">
+                  <icon class="iconfont icon-qian1 "></icon>
+                  <text class="time">共计：￥{{vipData.price}}</text>
+                  <text class="bar1">|</text>
+                  <text>购买时间：{{vipData.time}}</text>
+                </view>
+              </view>
+              <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
+            </view>
+          </view>
+        </view>
+        <!-- 无内容 -->
+        <view wx:if="{{listShowType==2}}">
+          <view class="nomsg-img-box">
+              <image wx:if="tabsActive==3" mode='aspectFill'
+              src="https://march.yuanian.com/static/assets/img/not-vip.png" alt
+              class="nomsg-img" />
+              <image wx:else mode='aspectFill'
+              src="https://march.yuanian.com/static/assets/img/none.png" alt
+              class="nomsg-img" />
+            <view class="tips-msg">暂无数据记录</view>
+          </view>
+        </view>
+      </view>
+      <!-- <view class="buy-box" wx:else="{{tabsActive==3}}"> -->
+      <!-- 加载中 -->
+      <!-- <view wx:if="{{buyShowType==0}}">
+          <van-loading type="spinner" class="loading" />
+        </view>
+        <view wx:if="{{buyShowType==1}}">
+          <black wx:for="{{buyData}}" wx:key="id">
+            <view class="history-item">
+              <view class="history-l">
+                <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
+              </view>
+              <view class="history-r">
+                <view class="r-content">
+                  <view class="r-title ellipsis1row">{{item.name}}</view>
+                  <view class="r-sub ellipsis1row"> {{item.sub}}</view>
+                  <view class="r-operation">
+                    <icon class="iconfont icon-qian1 "></icon>
+                    <text class="time">共计：￥{{item.price}}</text>
+                    <text class="bar1">|</text>
+                    <text>购买时间：{{item.time}}</text>
+                  </view>
+                </view>
+                <icon class="iconfont icon-quxiao r-del"></icon>
+              </view>
+            </view>
+          </black>
+          <view class="history-item">
+          <view class="history-l">
+            <image mode='aspectFill' src="/assets/img/vip-img.png" alt class="img" />
+          </view>
+          <view class="history-r">
+            <view class="r-content">
+              <view class="r-title ellipsis1row">CMAS随时听会员 1个月</view>
+              <view class="r-operation vip-operation">
+                <icon class="iconfont icon-qian1 "></icon>
+                <text class="time">共计：￥12.00</text>
+                <text class="bar1">|</text>
+                <text>购买时间：2021-04-28</text>
+              </view>
+            </view>
+            <icon class="iconfont icon-quxiao r-del"></icon>
+          </view>
+        </view>
+        </view> -->
+      <!-- 无内容 -->
+      <!-- <view  wx:if="{{buyShowType==2}}">
+          <view class="nomsg-img-box">
+            <image mode='aspectFill'
+              src="https://march.yuanian.com/static/assets/img/none.png" alt
+              class="nomsg-img" />
+            <view class="tips-msg">暂无数据记录</view>
+          </view>
+        </view> -->
+      <!-- </view> -->
+    </view>
+  </view>
+  <van-popup show="{{ calendarShow }}" round position="bottom" bind:close="onClose">
+    <van-datetime-picker type="date" min-date="{{ minDate }}" max-date="{{maxDate}}" formatter="{{ formatter }}"
+      value="{{currentDate}}" bind:cancel="onClose" bind:confirm="onConfirm" bind:change="pickerTiemFn" />
+  </van-popup>
+</view>

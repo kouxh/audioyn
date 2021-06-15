@@ -1,0 +1,156 @@
+<wxs src="../../utils/utils.wxs" module="util" />
+<view class="pages-home-index">
+  <view class="home-content">
+    <view class="header-box common">
+      <view class="header-banner">
+        <view class="input-box">
+          <icon class="iconfont icon-sousuo search"></icon>
+          <input class="input-img" disabled type="text"  bind:tap='toSearch' />
+        </view>
+      </view>
+      <swiper class="swiperBox" bindchange="changeSwiper" interval="3000" circular="{{true}}"
+        autoplay="true">
+        <block wx:for="{{propData}}" wx:key="key">
+          <swiper-item class="swiperItem">
+            <image mode="aspectFill" src='{{item.images_url}}' class="img imageItem">
+            </image>
+          </swiper-item>
+        </block>
+      </swiper>
+      <!-- 自定义指示点 -->
+      <view class="dots">
+          <block wx:for="{{propData}}" wx:key="index">
+                <view class="dot-r {{index==currentIndex?'active-dot':'dot'}}">
+                </view>
+          </block>
+      </view>
+
+      <view class="tabs-box">
+        <block wx:for="{{column}}" wx:key='mwc_id'>
+          <navigator hover-class="none" url="/pages-homes/column/index?mwc_id={{item.mwc_id}}&mwc_title={{item.mwc_title}}" class="tabs-item">
+            <view class="item-img">
+              <image mode="aspectFill" wx:if="{{item.mwc_id==1}}" src='/assets/img/home/shuzhi.png' class="img"></image>
+              <image mode="aspectFill"  wx:if="{{item.mwc_id==2}}" src='/assets/img/home/caiwu.png' class="img"></image>
+              <image mode="aspectFill"  wx:if="{{item.mwc_id==3}}" src='/assets/img/home/guanli.png' class="img"></image>
+              <image mode="aspectFill"  wx:if="{{item.mwc_id==4}}" src='/assets/img/home/jili.png' class="img"></image>
+              <image mode="aspectFill"  wx:if="{{item.mwc_id==5}}" src='/assets/img/home/yiyuan.png' class="img"></image>
+            </view>
+            <view class="item-text">{{item.mwc_title}}</view>
+          </navigator>
+        </block>
+      </view>
+    </view>
+    <view class="common listen-box">
+      <view class="title-box">
+        <view class="tit-tip"></view>
+        <view class="rd-title">历史收听</view>
+      </view>
+      <scroll-view class="listenScroll" enable-flex scroll-x>
+        <view class="listenScroll-box">
+          <view class="scrollItem" wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" bindtap="listenFn" data-id="{{item.mwa_id}}">
+          <view class="item-l">
+            <image mode='aspectFill' src="{{item.mwa_img}}" alt class="img" />
+          </view>
+          <view class="scrollItem-r">
+            <view class="r-title1  ellipsis2row">{{item.mwa_title}}</view>
+            <view class="plan">已播放10%</view>
+          </view>
+        </view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="recommend-box common">
+      <view class="title-box">
+        <view class="tit-tip"></view>
+        <view class="rd-title">CMAS新推荐</view>
+      </view>
+      <view class="content-box">
+        <view class="hot-box">
+          <view class="hot-l">
+            <text class="hot-tit ellipsis1row">企业数字化转型企业数字化转型</text>
+            <text class="hot-author">作者作者作者作者作者</text>
+            <text
+              class="hot-author hot-describe ellipsis3row">内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介。</text>
+          </view>
+          <view class="hot-r">
+            <image mode='aspectFill' src="" alt class="img" />
+          </view>
+        </view>
+        <block wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" >
+          <view class="each-item" bindtap="listenFn" data-id="{{item.mwa_id}}">
+            <view class="item-l" >
+              <image mode='aspectFill' src="" alt class="img" />
+            </view>
+            <view class="item-r">
+              <view class="r-title ellipsis2row">{{item.mwa_title}} </view>
+              <view class="r-base">
+                <view class="l-box">
+                  <icon class="iconfont icon-erji icon" style="display:flex;"></icon>
+                  <view class="num">{{item.mwa_num}}万</view>
+                  <view class="bar"></view>
+                  <view class="author">{{item.mwa_author}}</view>
+                </view>
+                <!-- <icon class="iconfont icon-gengduo iconbg" catchtap="onEdit" data-id="{{item.id}}" data-idx="{{index}}">
+                </icon> -->
+                <!-- 气泡提示框 -->
+                <!-- <view class="balloon" wx:if="{{item.isBalloon}}">
+                  <view class="balloon-content" >
+                    <icon class="iconfont icon-xin checked"></icon>
+                    <view class="share">收藏</view>
+                  </view>
+                  <view class="balloon-content">
+                    <icon class="iconfont icon-zhuanji shareicon"></icon>
+                    <view class="share">查看专辑</view>
+                  </view>
+                </view> -->
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="common magazine-box">
+      <view class="mz-content">
+        <view class="mz-title">
+          <view class="title-box">
+            <view class="tit-tip"></view>
+            <view class="rd-title">音频杂志</view>
+          </view>
+          <view bindtap="moreFn" class="title-r">更多 <icon
+              class="iconfont icon-gengduo2 more"></icon>
+          </view>
+        </view>
+        <view class="mz-box">
+          <block wx:for="{{maData}}" wx:key="m_id">
+            <view class="mz-item">
+                <image mode='aspectFill' src="{{util.setImgUrl}}{{item.cover_img}}" alt class="mz-item-img img" />
+              <view class="mz-item-title">{{item.name}}</view>
+              <view class="mz-item-sub ellipsis1row">{{item.title}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="look-box common">
+      <view class="mz-title">
+        <view class="title-box">
+          <view class="tit-tip"></view>
+          <view class="rd-title">猜你喜欢</view>
+        </view>
+        <!-- <view class="title-r" bindtap="chooseEvent">
+          <text>换一批</text>
+          <icon class="iconfont icon-huanyipi more"></icon>
+        </view> -->
+      </view>
+      <view class="list-box">
+      <block wx:for="{{likeData}}" wx:key="index">
+        <view class="list-item">
+          <icon class="iconfont icon-caidan mean"></icon>
+          <text>{{item.mwa_title}}\ </text>
+          <text class="column">栏目</text>
+        </view>
+      </block>
+      </view>
+    </view>
+  </view>
+</view>
