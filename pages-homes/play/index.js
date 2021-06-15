@@ -1,7 +1,4 @@
-// pages-homes/play/index.js
-// let musiclist=[]
-// //正在播放歌曲的index
-// let nowPlayingIndex=0
+
 //获取全局唯一的背景音频管理器
 const backgroundAudioManager=wx.getBackgroundAudioManager()
 import regeneratorRuntime from "../../libs/regenerator/runtime-module";
