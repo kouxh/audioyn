@@ -75,6 +75,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(wx.getStorageSync("userInfo"))
     // 获取用户数据
     this.setData({
       userInfo: wx.getStorageSync("userInfo")

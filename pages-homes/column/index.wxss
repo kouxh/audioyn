@@ -46,7 +46,7 @@
   margin: 0rpx 14rpx;
 }
 .total{
-  width: 166rpx;
+  min-width: 140rpx;
 	height: 30rpx;
 	background-color: #F67F7B;
 	border-radius: 15rpx;
@@ -55,6 +55,7 @@
   line-height: 30rpx;
   text-align: center;
   margin-top: 12rpx;
+  margin-right:70rpx;
 }
 
 .van-tabs__scroll {

@@ -17,13 +17,13 @@
 }
 .user-btn{
   width: 515rpx;
-	height: 63rpx;
+	height: 66rpx;
 	border-radius: 32rpx;
   border: solid 1rpx #d1d1d1;
   background-color: transparent;
   font-size: 28rpx;
   color: #666666;
-  line-height: 63rpx;
+  line-height: 66rpx;
   text-align: center;
 }
 .content-box{
@@ -53,7 +53,7 @@
 }
 .phone-btn{
   width: 219rpx;
-  height: 42rpx;
+  height: 50rpx;
 	background-image: linear-gradient(0deg, 
 		#e72828 0%, 
 		#f99292 100%);
@@ -62,7 +62,7 @@
   margin-top: 36rpx;
   font-size: 24rpx;
   color: #ffffff;
-  line-height: 42rpx;
+  line-height: 50rpx;
   text-align: center;
   border: #e72828;
 }

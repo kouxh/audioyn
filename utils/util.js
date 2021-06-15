@@ -54,10 +54,10 @@ function checkAddZone (num) {
   var response = await account.checkSession();
   let token = wx.getStorageSync('userInfo').token;
   if((!response || token==undefined)&& isLogin){
-    wx.showToast({
-      title: "请先授权登录！",
-      icon: "none"
-    });
+    // wx.showToast({
+    //   title: "请先授权登录！",
+    //   icon: "none"
+    // });
     wx.removeStorageSync("userInfo")
     wx.removeStorageSync("hasBindMobile")
     wx.reLaunch({

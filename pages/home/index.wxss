@@ -334,7 +334,7 @@ page{
 }
 
 .title-r {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: #666666;
   display: flex;
   align-items: center;
@@ -343,9 +343,9 @@ page{
 
 .more {
   display: flex;
-  font-size: 19rpx;
+  font-size: 20rpx;
   color: #e72828;
-  margin-left: 6px;
+  margin-left: 2px;
 }
 
 .mz-box {

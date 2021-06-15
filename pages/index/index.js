@@ -119,6 +119,7 @@ Page({
                 wx.setStorageSync('hasBindMobile', true)
                 wx.setStorageSync('userInfo', res1.data)
                 wx.hideLoading();
+                console.log(res1.data,"登录成功")
                 if(that.data.pagePlay){
                   wx.reLaunch({
                     url: `/pages-homes/play/index?mwaId=${that.data.pagePlay}`,
