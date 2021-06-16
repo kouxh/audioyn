@@ -83,6 +83,9 @@ Page({
     this.setData({
       problemBool:e.detail.problemShow
     })
+    wx.navigateBack({
+      delta: 1
+    });
   },
    
   /**

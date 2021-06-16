@@ -1,7 +1,8 @@
 {
   "usingComponents": {
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "float-view":"/components/float/index"
   },
   "enablePullDownRefresh": false,
   "onReachBottomDistance": 50

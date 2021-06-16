@@ -9,7 +9,7 @@ export default {
       httpClient.fetchPost(url, params, that.getOptions(options), addUrl).then(
         response => {
           resolve(response);
-          if (response.errCode == 10043) {
+          if (response.err_code == 10043) {
             wx.showToast({
               title: "登录过期，请重新登录",
               icon: "none"
@@ -35,7 +35,7 @@ export default {
       httpClient.fetchGet(url, params, that.getOptions(options), addUrl).then (
         response => {
           resolve(response);
-          if (response.errCode == 10043) {
+          if (response.err_code == 10043) {
             wx.showToast({
               title: "登录过期，请重新登录",
               icon: "none"
@@ -77,6 +77,5 @@ export default {
     // if (err.status == 999999406) {
     //   wx.switchTab({ url: "/pages/scan/index" });
     // }
-   
   }
 };

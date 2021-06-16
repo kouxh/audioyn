@@ -24,10 +24,9 @@
                 </view>
           </block>
       </view>
-
       <view class="tabs-box">
         <block wx:for="{{column}}" wx:key='mwc_id'>
-          <navigator hover-class="none" url="/pages-homes/column/index?mwc_id={{item.mwc_id}}&mwc_title={{item.mwc_title}}" class="tabs-item">
+          <view catchtap="columnFn" data-mwc_id="{{item.mwc_id}}" data-mwc_title="{{item.mwc_title}}"  class="tabs-item">
             <view class="item-img">
               <image mode="aspectFill" wx:if="{{item.mwc_id==1}}" src='/assets/img/home/shuzhi.png' class="img"></image>
               <image mode="aspectFill"  wx:if="{{item.mwc_id==2}}" src='/assets/img/home/caiwu.png' class="img"></image>
@@ -36,24 +35,24 @@
               <image mode="aspectFill"  wx:if="{{item.mwc_id==5}}" src='/assets/img/home/yiyuan.png' class="img"></image>
             </view>
             <view class="item-text">{{item.mwc_title}}</view>
-          </navigator>
+          </view>
         </block>
       </view>
     </view>
-    <view class="common listen-box">
+    <view class="common listen-box" wx:if="{{recentData.length>0}}">
       <view class="title-box">
         <view class="tit-tip"></view>
         <view class="rd-title">历史收听</view>
       </view>
       <scroll-view class="listenScroll" enable-flex scroll-x>
         <view class="listenScroll-box">
-          <view class="scrollItem" wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" bindtap="listenFn" data-id="{{item.mwa_id}}">
+          <view class="scrollItem" wx:for="{{recentData}}" wx:for-item="item" wx:for-index="index" wx:key="index" bindtap="listenFn" data-id="{{item.mwa_id}}">
           <view class="item-l">
             <image mode='aspectFill' src="{{item.mwa_img}}" alt class="img" />
           </view>
           <view class="scrollItem-r">
             <view class="r-title1  ellipsis2row">{{item.mwa_title}}</view>
-            <view class="plan">已播放10%</view>
+            <view class="plan">已播放{{item.mwrl_speed}}</view>
           </view>
         </view>
         </view>
@@ -86,23 +85,10 @@
               <view class="r-base">
                 <view class="l-box">
                   <icon class="iconfont icon-erji icon" style="display:flex;"></icon>
-                  <view class="num">{{item.mwa_num}}万</view>
+                  <view class="num">{{util.largeNumber(item.mwa_num,2)}}</view>
                   <view class="bar"></view>
                   <view class="author">{{item.mwa_author}}</view>
                 </view>
-                <!-- <icon class="iconfont icon-gengduo iconbg" catchtap="onEdit" data-id="{{item.id}}" data-idx="{{index}}">
-                </icon> -->
-                <!-- 气泡提示框 -->
-                <!-- <view class="balloon" wx:if="{{item.isBalloon}}">
-                  <view class="balloon-content" >
-                    <icon class="iconfont icon-xin checked"></icon>
-                    <view class="share">收藏</view>
-                  </view>
-                  <view class="balloon-content">
-                    <icon class="iconfont icon-zhuanji shareicon"></icon>
-                    <view class="share">查看专辑</view>
-                  </view>
-                </view> -->
               </view>
             </view>
           </view>
@@ -144,13 +130,14 @@
       </view>
       <view class="list-box">
       <block wx:for="{{likeData}}" wx:key="index">
-        <view class="list-item">
+        <view class="list-item" bindtap="listenFn" data-id="{{item.mwa_id}}">
           <icon class="iconfont icon-caidan mean"></icon>
           <text>{{item.mwa_title}}\ </text>
-          <text class="column">栏目</text>
+          <text class="column">{{item.mwc_title}}</text>
         </view>
       </block>
       </view>
     </view>
   </view>
+  <float-view wx:if="{{isMusicPlay}}" class="float-popup {{isMusicPlay && 'discAnimation'}}" bind:backFn="backFn"></float-view> 
 </view>

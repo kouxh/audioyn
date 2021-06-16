@@ -1,0 +1,4 @@
+
+<view class="float-box" bindtap="backFn" >
+  <image mode='aspectFill' src="/assets/img/book.png" alt class="float-img img" />
+</view>

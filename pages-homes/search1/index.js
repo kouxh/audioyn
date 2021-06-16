@@ -7,7 +7,7 @@ Page({
    */
   data: {
     searchContent: '',//表单项内容
-    hotList:['数智化经营','财务管理','管理会计','预算管理','财务共享','大数据','电子发票','财务机器人','区块链'],//热门搜索数组
+    hotList:['数智化经营','财务管理'],//热门搜索数组
     listData: [
       // {
       //   id:1,
@@ -17,46 +17,6 @@ Page({
       //   author:'作者姓名',
       //   isBalloon:false,//是否展示操作框
       // },
-      // {
-      //   id:2,
-      //   img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-      //   title:"音频标题标题标题标题标题标题标题标题",
-      //   num:2,
-      //   author:'作者姓名',
-      //   isBalloon:false,//是否展示操作框
-      // },
-      // {
-      //   id:3,
-      //   img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-      //   title:"音频标题标题标题标题标题标题标题标题",
-      //   num:2,
-      //   author:'作者姓名',
-      //   isBalloon:false,//是否展示操作框
-      // }
-      // ,{
-      //   id:4,
-      //   img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-      //   title:"音频标题标题标题标题标题标题标题标题",
-      //   num:2,
-      //   author:'作者姓名',
-      //   isBalloon:false,//是否展示操作框
-      // },
-      // {
-      //   id:5,
-      //   img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-      //   title:"音频标题标题标题标题标题标题标题标题",
-      //   num:2,
-      //   author:'作者姓名',
-      //   isBalloon:false,//是否展示操作框
-      // },
-      // {
-      //   id:6,
-      //   img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-      //   title:"音频标题标题标题标题标题标题标题标题",
-      //   num:2,
-      //   author:'作者姓名',
-      //   isBalloon:false,//是否展示操作框
-      // }
     ], //推荐列表数组
     searchList: [],//匹配到的数据
     pageIndex: 1,
@@ -77,7 +37,6 @@ Page({
     //获取初始化数据
     async getInitData(){
       let hotListData =  await getApp().globalData.api.searchVocabularyList({});
-      console.log(hotListData)
       if(hotListData.bol){
         this.setData({
           hotList: hotListData.data.vocabulary,
@@ -161,6 +120,7 @@ Page({
       searchList: [],
       isSearch:false
     })
+    console.log(this.data.searchContent,'清除-----')
   },
   //点击热搜榜进行搜索
   searchHot(event){

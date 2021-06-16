@@ -1,12 +1,15 @@
 // pages/home/index.js
 import regeneratorRuntime from "../../libs/regenerator/runtime-module";
 import {checkLogin} from "../../utils/util";
+const backgroundAudioManager=wx.getBackgroundAudioManager()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    isMusicPlay: '',//全局是否播放
+    musicId:'',//全局播放id
     currentIndex: 0,//当前轮播图的索引
     propData:[{
         event_value:1,
@@ -25,7 +28,7 @@ Page({
       }
     ],//轮播图数据
     column:[],//栏目数组
-    recent:[],//最近收听
+    recentData:[],//最近收听
     listData: [
       {
         id:1,
@@ -63,6 +66,7 @@ Page({
     that.listDataFn();
     //换一批功能
     that.chooseEvent();
+    console.log(backgroundAudioManager,'----')
   },
   //首页数据
  listDataFn(){
@@ -79,13 +83,12 @@ Page({
       if(res.data.bol){
           that.setData({
             // propData: res.data.adver,//轮播图
-            // recent: res.data.recent, //最近收听
+            recentData: res.data.recent, //最近收听
             column:res.data.data.column,//栏目
             listData:res.data.data.top_two,
             maData:res.data.data.ma_new_two,
             likeData:res.data.data.top_five,
           });
-          console.log(res.data.ma_new_two,)
       }else{
         wx.showToast({ title: res.data.err_msg, icon: "none" });
       }
@@ -128,6 +131,13 @@ Page({
     let listenId=e.currentTarget.dataset.id;
     checkLogin('/pages-homes/play/index?mwaId='+listenId,1,true,1);
   },
+  //点击栏目跳转
+  columnFn(e){
+    let mwc_id=e.currentTarget.dataset.mwc_id;
+    let mwc_title=e.currentTarget.dataset.mwc_title;
+    checkLogin(`/pages-homes/column/index?mwc_id=${mwc_id}&mwc_title=${mwc_title}`,1,true,1);
+  },
+
   //点击CMAS新推荐
   recommendFn(e){
     console.log(e)
@@ -140,10 +150,14 @@ Page({
   },
   //跳转到搜索页面
   toSearch(){
+    checkLogin('/pages-homes/search1/index',1,true,1);
+  },
+  backFn(){
     wx.navigateTo({
-      url: '/pages-homes/search1/index',
+      url: '/pages-homes/play/index?mwaId='+ this.data.musicId,
     })
   },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -155,11 +169,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-      this.getTabBar().setData({
-        selected: 0
-      })
-    }
+    this.setData({
+      isMusicPlay:getApp().globalData.isMusicPlay,
+      musicId:getApp().globalData.musicId
+    })
+    console.log(getApp().globalData.isMusicPlay,getApp().globalData.musicId,'====')
+    console.log(backgroundAudioManager,'----')
   },
 
   /**

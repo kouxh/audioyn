@@ -1,4 +1,17 @@
+
+  function largeNumber(num,point){
+    var numStr=num+''.split('.')[0]
+    var decimal=numStr.substring(numStr.length-4,numStr.length-4+point)
+    return parseFloat(parseInt(num/10000)+'.'+decimal)+'万'
+  }
+  // 保留两位小数（input书写）
+function toFixed(value) {
+  return parseFloat(value).toFixed(2)
+}
 module.exports = {
+  largeNumber: largeNumber,
+  toFixed:toFixed,
   setImgUrl: "https://www.chinamas.cn",
   networkImgUrl:'https://www.chinamas.cn',
+ 
 };

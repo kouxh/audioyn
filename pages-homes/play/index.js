@@ -65,34 +65,29 @@ Page({
      this.menuListFn();//播单列表
     //判断当前页面音乐是否在播放
     if(appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === musicId){
-      console.log(appInstance.globalData.musicId)
       //修改当前页面音乐播放状态
       this.setData({
         isPlay: true
       })
     }
     if(this.data.isShare=='true'){
+      console.log(userInfo,'--用户信息-')
       if(!userInfo){
         return wx.reLaunch({ url: `/pages/index/index?pagePlay=${this.data.musicId}`})
       }
     }else{
       //自动播放当前音乐
       this.myrecord()
-      
     }
     //监视音乐播放与暂停
     backgroundAudioManager.onPlay(()=>{
-      console.log('onplay')
       //修改音乐播放状态
       this.changePlayState(true);
       appInstance.globalData.musicId = musicId;
-      // this.countTimeDown(this,backgroundAudioManager);
     });
     backgroundAudioManager.onPause(()=>{
-      console.log('onPause')
       this.changePlayState(false);
       this.listeningFn();
-      console.log(this.data.progress,this.data.duration,'-----')
     });
     backgroundAudioManager.onStop(()=>{
       this.listeningFn();
@@ -100,7 +95,6 @@ Page({
     });
     //音乐播放自然结束
     backgroundAudioManager.onEnded(()=>{
-      console.log("onend")
         this.listeningFn();
         this.setData({
           isPlay: false
@@ -126,22 +120,17 @@ Page({
   },
   myrecord(){
     let myrecord = wx.getStorageSync("record")
-    console.log(myrecord,'myrecord----')
     if (myrecord != "") {
       if (myrecord.musicId == this.data.musicId) {
         console.log(this.data.musicId,myrecord.musicId,)
-        backgroundAudioManager.pause();
         backgroundAudioManager.seek(myrecord.progress);
-      this.setData({
-        progressText: this.formatTime(Math.ceil(myrecord.progress))
-      })
-      setTimeout(function () {
         backgroundAudioManager.play();
-      }, 1000);
-      this.setData({
-        currentIndex: myrecord.currentIndex,
-      })
-      wx.setStorageSync("record", "")
+        this.setData({
+          progressText: this.formatTime(Math.ceil(myrecord.progress)),
+          currentIndex: myrecord.currentIndex,
+          playData:myrecord.playData,
+        })
+        wx.setStorageSync("record", "")
       }else{
         this.musicControl(true,this.data.musicId);
       }
@@ -153,7 +142,6 @@ Page({
   async listeningFn(){
     let that = this;
     let {duration,progress}=that.data;
-    console.log(that.data.progress,that.data.duration,'监听')
     let res=await getApp().globalData.api.listening({
       uid:wx.getStorageSync("userInfo").uid,
       auid:that.data.musicId,
@@ -313,7 +301,6 @@ Page({
   },
   //付费弹框点击取消按钮
   onClose() {
-    console.log(this.data.duration,'----')
     this.setData({ 
       payShow: false,
     });
@@ -513,8 +500,8 @@ Page({
           payShow:false,
         })
         //请求判断是不是会员接口
-        that.nextMusic()
-        //  that.triggerEvent('vipShowClose',{ vipShow: false } )
+        that.musicControl(true,that.data.musicId);
+        // that.nextMusic()
       },
       fail(res) {
         wx.showToast({ title: "支付失败,请求重试", icon: "none" });
@@ -554,6 +541,7 @@ Page({
     let duration = this.data.duration
     let durationText = this.data.durationText
     let musicId = this.data.musicId
+    let playData=this.data.playData
     let record = new Object()
     record.currentIndex = currentIndex
     record.musicId = musicId
@@ -561,6 +549,7 @@ Page({
     record.progressText = progressText
     record.duration = duration
     record.durationText = durationText
+    record.playData=playData
     wx.setStorageSync("record", record)
   },
 

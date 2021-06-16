@@ -1,4 +1,4 @@
-<!--pages/member/index.wxml-->
+<wxs src="../../utils/utils.wxs" module="util" />
 <view class="pages-member-index">
   <view class="member-header">
     <view class="photo-box">
@@ -79,20 +79,19 @@
         </view>
         <!-- 有内容 -->
         <view wx:if="{{listShowType==1}}">
-          <block wx:for="{{dataList}}" wx:key="id">
-            <view class="history-item">
+          <block wx:for="{{dataList}}" wx:key="mwa_id">
+            <navigator class="history-item" navigator hover-class="none" url="/pages-homes/play/index?mwaId={{item.mwa_id}}">
               <view class="history-l">
                 <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
               </view>
               <view class="history-r">
                 <view class="r-content">
                   <view class="r-title ellipsis1row">{{item.mwa_title}}</view>
-                  <!-- <view class="r-sub ellipsis1row">{{item.sub}}</view> -->
                   <view class="r-operation" wx:if="{{tabsActive==1}}">
                     <icon class="iconfont icon-erji "></icon>
-                    <text class="num">2万</text>
+                    <text class="num">{{util.largeNumber(item.mwa_num,2)}}</text>
                     <text class="bar">|</text>
-                    <text>{{item.author}}</text>
+                    <text>{{item.mwa_author}}</text>
                   </view>
                   <view class="r-operation" wx:elif="{{tabsActive==2}}">
                     <icon class="iconfont icon-lishibofang "></icon>
@@ -111,7 +110,7 @@
                 </view>
                 <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
               </view>
-            </view>
+            </navigator>
           </block>
           <view class="history-item" wx:if="{{tabsActive==3&&vipData}}">
             <view class="history-l">

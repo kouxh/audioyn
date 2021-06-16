@@ -18,7 +18,7 @@
       <van-uploader file-list="{{ fileList }}" max-count="1" bind:after-read="afterRead" bind:delete="delete"
         bind:click-preview='previewImage' />
     </view>
-    <view class="fooder-btn" wx:if="{{submitBool}}" bind:tap="commentFn">提交评论</view>
+    <view class="fooder-btn" wx:if="{{submitBool}}" bind:tap="commentFn">提交</view>
     <view class="fooder-btn" wx:if="{{!submitBool}}">提交中…</view>
   </view>
    <!-- 问题反馈提交提示 -->

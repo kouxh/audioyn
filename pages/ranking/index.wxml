@@ -1,3 +1,4 @@
+<wxs src="../../utils/utils.wxs" module="util" />
 <view class="pages-ranking-index">
   <view class="header-banner">
   </view>
@@ -24,7 +25,7 @@
           <view class="r-base">
             <view class="l-box">
               <icon class="iconfont icon-erji icon" style="display:flex;"></icon>
-              <view class="num">{{item.mwa_num}}万</view>
+              <view class="num">{{util.largeNumber(item.mwa_num,2)}}</view>
               <view class="bar"></view>
               <view class="author">{{item.mwa_author}}</view>
             </view>

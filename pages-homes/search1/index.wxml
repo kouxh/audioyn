@@ -2,8 +2,10 @@
   <view class="header-box">
     <view class="input-box">
       <icon class="iconfont icon-sousuo search"></icon>
-      <input class="input-img" ttype="text" value="{{searchContent}}" placeholder=""  bindinput="handleInputChange"  />
-      <icon class="iconfont icon-qingchu clear" hidden="{{!searchContent}}" bindtap="handleClear"></icon>
+      <view class="input-frame">
+        <input class="input-img" confirm-type="search" type="text" value="{{searchContent}}"  bindinput="handleInputChange"  />
+       <icon class="iconfont icon-qingchu clear" hidden="{{!searchContent}}" catchtap="handleClear"></icon>
+      </view>
     </view>
   </view>
   <!-- 搜索列表 -->

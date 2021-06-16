@@ -1,0 +1,12 @@
+/* components/float/index.wxss */
+.float-box{
+  width: 120rpx;
+  height: 120rpx;
+  background-color: black;
+  border-radius: 50%;
+}
+.float-img{
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}

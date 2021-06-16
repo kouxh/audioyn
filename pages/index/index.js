@@ -67,7 +67,7 @@ Page({
             encryptedInfo:res.encryptedData,//用户授权的加密数据
             ivInfo: res.iv,//用户授权的iv
           })
-        }, 500);
+        }, 1000);
       }
     })
   },

@@ -52,7 +52,7 @@
   margin: 0 auto;
 }
 .phone-btn{
-  width: 219rpx;
+  width: 250rpx;
   height: 50rpx;
 	background-image: linear-gradient(0deg, 
 		#e72828 0%, 
