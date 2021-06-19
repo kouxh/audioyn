@@ -164,6 +164,7 @@
 
 .progress .bar {
   flex: 1;
+  background-color: #e8e8e8;
 }
 
 .progress text {

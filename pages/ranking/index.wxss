@@ -1,10 +1,10 @@
 @import "/pages/recommend/index.wxss";
-.each-item{
+
+.each-item {
   width: 584rpx;
-	height: 130rpx;
-	background-color: #ffffff;
-	box-shadow: 0rpx 0rpx 15rpx 0rpx 
-		rgba(153, 153, 153, 0.15);
+  height: 130rpx;
+  background-color: #ffffff;
+  box-shadow: 0rpx 0rpx 15rpx 0rpx rgba(153, 153, 153, 0.15);
   border-radius: 9rpx;
   margin-bottom: 24rpx;
   padding: 20rpx 30rpx;
@@ -12,30 +12,39 @@
   align-items: center;
   position: relative;
 }
-.rank{
+
+.rank {
   position: absolute;
   top: -1rpx;
   left: 30rpx;
-  width: 30rpx;
-	height: 32rpx;
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-}
-.ranking{
+.ranking {
   position: absolute;
-  top: 3rpx;
-  left: 8rpx;
-  font-size: 20rpx;
-	color: #ffffff;
+  font-size: 18rpx;
+  color: #ffffff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.item-l{
+
+.item-l {
   width: 174rpx;
-	height: 129rpx;
-	background-color: #999999;
+  height: 129rpx;
+  background-color: #999999;
   border-radius: 6rpx;
   display: flex;
   flex: none;
 }
-.item-r{
+
+.item-r {
   width: 390rpx;
   height: 120rpx;
   margin-left: 28rpx;
@@ -43,31 +52,36 @@
   flex-direction: column;
   justify-content: space-between;
 }
- .r-title{
+
+.r-title {
   /* width: 300rpx; */
-	font-family: PingFangSC-Regular;
-	font-size: 26rpx;
-	line-height: 36rpx;
-	letter-spacing: 0rpx;
-	color: #333333;
+  font-family: PingFangSC-Regular;
+  font-size: 26rpx;
+  line-height: 36rpx;
+  letter-spacing: 0rpx;
+  color: #333333;
 }
-.r-base{
+
+.r-base {
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
 }
-.l-box{
+
+.l-box {
   display: flex;
   align-items: center;
   font-size: 22rpx;
-	letter-spacing: 0rpx;
-	color: #666666;
+  letter-spacing: 0rpx;
+  color: #666666;
 }
-.l-box .num{
- margin-left: 14rpx;
+
+.l-box .num {
+  margin-left: 14rpx;
 }
- .l-box .bar{
+
+.l-box .bar {
   width: 2rpx;
   height: 21rpx;
   background-color: #e8e8e8;

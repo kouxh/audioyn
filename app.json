@@ -43,14 +43,14 @@
         "text": "首页"
       },
       {
-        "iconPath": "assets/img/tabs/collect0.png",
-        "selectedIconPath": "assets/img/tabs/collect.png",
+        "iconPath": "assets/img/tabs/ranking0.png",
+        "selectedIconPath": "assets/img/tabs/ranking1.png",
         "pagePath": "pages/ranking/index",
         "text": "排行榜"
       },
       {
-        "iconPath": "assets/img/tabs/recommend0.png",
-        "selectedIconPath": "assets/img/tabs/recommend.png",
+        "iconPath": "assets/img/tabs/free0.png",
+        "selectedIconPath": "assets/img/tabs/free1.png",
         "pagePath": "pages/free/index",
         "text": "免费"
       },

@@ -55,7 +55,7 @@ Page({
     })
     if(_this.total / _this.pageSize > _this.pageIndex){
       that.setData({
-        listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, (_this.pageIndex-1) * _this.pageSize)),
+        listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex * _this.pageSize)),
         pageIndex: _this.pageIndex + 1 ,
       })
     }else{
@@ -118,7 +118,6 @@ Page({
     if(!this.data.finished){
       this.loadmore();
     }
-    
   },
 
   /**

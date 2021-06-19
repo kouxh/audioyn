@@ -207,7 +207,6 @@ Page({
   //拖动事件
   sliderChange: function (e) {
     console.log(e)
-    // let manager = wx.getBackgroundAudioManager();
     backgroundAudioManager.pause();
     backgroundAudioManager.seek(e.detail.value);
     this.setData({

@@ -2,6 +2,7 @@
 //获取全局唯一的背景音频管理器
 const backgroundAudioManager=wx.getBackgroundAudioManager()
 import regeneratorRuntime from "../../libs/regenerator/runtime-module";
+import {toPoint} from "../../utils/util";
 //获取全局实例
 const appInstance = getApp();
 Page({
@@ -13,12 +14,7 @@ Page({
     musicId:1,//播放id
     currentIndex:0,//当前索引
     isMusicLink:false,//是否是第一次播放
-    playData:{
-        src: 'https://cmas-lis.oss-cn-hangzhou.aliyuncs.com/c5fc19c8df334bea8ae6d952fa0c311c/TRANSCODE_1620640654182/%E6%BA%AF%20%28Reverse%E6%B2%BB%E6%84%88%E7%89%88%29',
-        poster: 'https://616e-anilagle-7474cd-1256663410.tcb.qcloud.la/logo部分的补充图/4.JPG?sign=62938ddecd979722c6726c100d8119fb&t=1547648207',
-        name: '安河桥',
-        author: '韩铭'
-    },
+    playData:{},
     duration: 0,
     progress: 0,
     progressText: "00:00",//实时时间
@@ -27,26 +23,17 @@ Page({
     menuShow:false,//播单列表弹框
     currentTabs:0,//0当前播放 1 播放历史
     vipShow:false,//是否展示付费弹框
-    // status播放状态 0未播放1播放中2已播完
-    menuData:[
-      // {musicId:1,name:'第15章   《管理会计研究》第一期_015',status:0},
-    ],//当前播放列表
+    menuData:[],//当前播放列表
     isInverted:false,//是否倒序
-    historyData:[
-      { id:1,
-        name:'《管理会计研究》 杂志第一期',
-        sub:'第21章  《管理会计研究》第一期_021',
-        duration:'10:00',
-        progress:'10%',
-        author:'作者姓名'
-      },
-    ],//最近收听数据
+    historyData:[],//最近收听数据
     listShowType: 1, // 列表显示状态 0加载中 1有 2无
     userInfo:'',//用户信息
     isCollect:false,//是否收藏
     payData: {}, // 支付配置参数
-    isStatus:true,//是否展示单篇付费弹框
-    isShare:false,//是否是从分享页进入
+    isStatus:false,//是否展示单篇付费弹框
+    // isShare:false,//是否是从分享页进入
+    speed:'',//播放进程
+    isSinglePay:false,//单篇支付支付
   },
 
   /**
@@ -57,33 +44,36 @@ Page({
       //options路由跳转参数
       let musicId = options.mwaId;
       let userInfo = wx.getStorageSync("userInfo");
+      let speed=''
+      if(options.isShare=='true'){
+        console.log(userInfo,'--用户信息-')
+        if(!userInfo){
+          return wx.reLaunch({ url: `/pages/index/index?pagePlay=${musicId}`})
+        }
+      }
+      if(options.speed){speed =toPoint(options.speed);} 
       this.setData({
-        musicId:musicId,
-        userInfo: userInfo,
-        isShare:options.isShare
+        musicId,
+        userInfo,
+        speed
       });
      this.menuListFn();//播单列表
     //判断当前页面音乐是否在播放
     if(appInstance.globalData.isMusicPlay && appInstance.globalData.musicId === musicId){
       //修改当前页面音乐播放状态
+      console.log(appInstance.globalData.isMusicPlay)
       this.setData({
         isPlay: true
       })
     }
-    if(this.data.isShare=='true'){
-      console.log(userInfo,'--用户信息-')
-      if(!userInfo){
-        return wx.reLaunch({ url: `/pages/index/index?pagePlay=${this.data.musicId}`})
-      }
-    }else{
-      //自动播放当前音乐
-      this.myrecord()
-    }
+    //自动播放当前音乐
+    this.musicControl(true,this.data.musicId);
     //监视音乐播放与暂停
     backgroundAudioManager.onPlay(()=>{
       //修改音乐播放状态
       this.changePlayState(true);
       appInstance.globalData.musicId = musicId;
+      
     });
     backgroundAudioManager.onPause(()=>{
       this.changePlayState(false);
@@ -99,45 +89,31 @@ Page({
         this.setData({
           isPlay: false
         })
-        if(this.data.isStatus){
+        if(this.data.isStatus==true){
+          console.log(this.data.isStatus,'this.data.isStatus00支付')
           this.setData({
             payShow:true
           })
         }else{
-          this.nextMusic();
+          console.log(this.data.isStatus,'this.data.isStatus11下一首')
+          setTimeout(() => {
+            this.nextMusic();
+          }, 1000);
+          
         }
     })
     //监听音乐实时播放的进度
     backgroundAudioManager.onTimeUpdate(() => {
-        this.setData({
-          progress: Math.ceil(backgroundAudioManager.currentTime),
-          progressText: this.formatTime(Math.ceil(backgroundAudioManager.currentTime)),
-          duration: Math.ceil(backgroundAudioManager.duration),
-          durationText: this.formatTime(Math.ceil(backgroundAudioManager.duration)),
-          isMusicLink:true
-        })
+      this.setData({
+        progress: Math.ceil(backgroundAudioManager.currentTime),
+        progressText: this.formatTime(Math.ceil(backgroundAudioManager.currentTime)),
+        duration: Math.ceil(backgroundAudioManager.duration),
+        durationText: this.formatTime(Math.ceil(backgroundAudioManager.duration)),
+        isMusicLink:true
+      })
     })
   },
-  myrecord(){
-    let myrecord = wx.getStorageSync("record")
-    if (myrecord != "") {
-      if (myrecord.musicId == this.data.musicId) {
-        console.log(this.data.musicId,myrecord.musicId,)
-        backgroundAudioManager.seek(myrecord.progress);
-        backgroundAudioManager.play();
-        this.setData({
-          progressText: this.formatTime(Math.ceil(myrecord.progress)),
-          currentIndex: myrecord.currentIndex,
-          playData:myrecord.playData,
-        })
-        wx.setStorageSync("record", "")
-      }else{
-        this.musicControl(true,this.data.musicId);
-      }
-    }else{
-      this.musicControl(true,this.data.musicId);
-    }
-  },
+
   //获取播放时长传给后台
   async listeningFn(){
     let that = this;
@@ -155,13 +131,31 @@ Page({
     backgroundAudioManager.stop();
     let musicId=event.currentTarget.dataset.musicid
     let index=event.currentTarget.dataset.index
+    let speed=event.currentTarget.dataset.speed
+    console.log(speed)
     this.setData({
       musicId:musicId,
-      currentIndex:index
+      currentIndex:index,
+      speed:toPoint(speed),
+      menuShow:false
     })
-    //  //自动播放当前音乐
+    //自动播放当前音乐
     this.musicControl(true,musicId);
-    // this.menuListFn();
+  },
+  //点击播放历史
+  onListFn(e){
+     //关闭当前播放音乐
+     backgroundAudioManager.stop();
+     let musicId=e.currentTarget.dataset.mwaid
+     let speed=e.currentTarget.dataset.speed
+     this.setData({
+       musicId:musicId,
+       speed:toPoint(speed),
+       menuShow:false
+     })
+     //自动播放当前音乐
+     this.musicControl(true,musicId);
+     this.menuListFn();
   },
   //修改播放状态
   changePlayState(isPlay){
@@ -179,42 +173,65 @@ Page({
     this.musicControl(isPlay,musicId,isMusicLink);
   },
   //歌曲播放控制功能
-  async musicControl(isPlay,musicId,isMusicLink){
+  musicControl(isPlay,musicId,isMusicLink){
     let that = this;
     if(isPlay){//音乐播放
       if(isMusicLink){
+        console.log(isMusicLink,'isMusicLink---')
         backgroundAudioManager.play();
       }else{
         //音频详情
-          let response=await getApp().globalData.api.contentDesc({
+           getApp().globalData.api.contentDesc({
             uid:wx.getStorageSync("userInfo").uid,
             audId:musicId
-          })
-            if(response.bol==true){
+          }).then(res=>{
+            if(res.bol){
               let {isStatus,isCollect}=that.data;
-              if(response.data.desc.is_collections=="未收藏"){
+              if(res.data.desc.is_collections=="未收藏"){
                 isCollect=false
               }else{
                 isCollect=true
               }
-              if(response.data.desc.status!=="付费"){
-                isCollect=false
+              if(res.data.desc.status=="0"){
+                isStatus=true
               }
               that.setData({
-                playData:response.data.desc,
+                playData:res.data.desc,
                 isCollect,
                 isStatus
               });
+              console.log(res.data.desc,isStatus,'00000')
+              //歌曲播放
+              backgroundAudioManager.title = this.data.playData.mwa_title
+              backgroundAudioManager.epname = this.data.playData.mwc_title
+              backgroundAudioManager.singer = this.data.playData.mwa_author
+              // 设置了 src 之后会自动播放
+              backgroundAudioManager.src = this.data.playData.url
+              if(this.data.isSinglePay){
+                backgroundAudioManager.pause();
+                setTimeout(() => {
+                  backgroundAudioManager.seek(60);
+                  backgroundAudioManager.play();
+                  console.log(this.data.isSinglePay,'this.data.isSinglePay')
+                  this.setData({
+                    isSinglePay:false
+                  })
+                }, 1000);
+              }
+              if(this.data.speed&&this.data.speed!=100&&!this.data.isSinglePay){
+                backgroundAudioManager.pause();
+                let duration =parseInt(this.data.playData.mwrl_total_time);
+                let speeding=this.data.speed*duration
+                setTimeout(() => {
+                  backgroundAudioManager.seek(speeding);
+                  backgroundAudioManager.play();
+                  console.log(speeding,this.data.speed,duration)
+                }, 1000);
+              }
             }else{
               wx.showToast({ title: response.data.msg, icon: "none" });
-          }
-          //歌曲播放
-          backgroundAudioManager.title = this.data.playData.mwa_title
-          backgroundAudioManager.epname = this.data.playData.mwc_title
-          backgroundAudioManager.singer = this.data.playData.mwa_author
-          // backgroundAudioManager.coverImgUrl = this.data.playData.poster
-          // 设置了 src 之后会自动播放
-          backgroundAudioManager.src = this.data.playData.url
+            }
+          })
       }
     }else{//音乐暂停
       backgroundAudioManager.pause();
@@ -223,6 +240,7 @@ Page({
 
   //上一首
   lastMusic: function () {
+    console.log("上一首")
     //关闭当前播放音乐
     backgroundAudioManager.stop();
     let currentIndex = this.data.currentIndex > 0 ? this.data.currentIndex - 1  :  this.data.menuData.length - 1;
@@ -241,6 +259,7 @@ Page({
   },
   //下一首
   nextMusic: function () {
+    console.log("下一首")
     //关闭当前播放音乐
     backgroundAudioManager.stop();
     let currentIndex = this.data.currentIndex < this.data.menuData.length - 1 ? this.data.currentIndex + 1 : 0;
@@ -257,28 +276,18 @@ Page({
       this.musicControl(true,musicId);
     }.bind(this), 100);
   },
-  //循环计时
-  countTimeDown(that,backgroundAudioManager) {
-    if (that.data.isPlay) {
-      that.setData({
-        progress: Math.ceil(backgroundAudioManager.currentTime),
-        progressText: that.formatTime(Math.ceil(backgroundAudioManager.currentTime)),
-        duration: Math.ceil(backgroundAudioManager.duration),
-        durationText: that.formatTime(Math.ceil(backgroundAudioManager.duration))
-      })
-      setTimeout(function(){
-        that.countTimeDown(that,backgroundAudioManager);
-      },1000)
-    }
-  },
+
   //拖动事件
   sliderChange: function (e) {
-    backgroundAudioManager.pause();
+    // backgroundAudioManager.pause();
+    console.log(e.detail.value,'e.detail.value')
     backgroundAudioManager.seek(e.detail.value);
     this.setData({
       progressText: this.formatTime(e.detail.value)
     })
-    backgroundAudioManager.play();
+    // setTimeout(() => {
+    //   backgroundAudioManager.play();
+    // }, 500);
   },
   //格式化时长
   formatTime: function (s) {
@@ -297,7 +306,6 @@ Page({
       t += sec;
     }
     return t;
-    
   },
   //付费弹框点击取消按钮
   onClose() {
@@ -331,21 +339,14 @@ Page({
     this.setData({
       vipShow:e.detail.vipShow
     })
+    // 重新请求接口
+    this.musicControl(true,this.data.musicId);
   },
   //正序
   just() {
     var achearr = this.data.menuData;
-    if (achearr[0].musicId == 1) {
-      wx.showToast({
-        title: '已是正序',
-        icon: 'none',
-        image: '',
-        duration: 500,
-        mask: true,
-        success: function (res) { },
-        fail: function (res) { },
-        complete: function (res) { },
-      })
+    if (achearr.length == 1) {
+      wx.showToast({title: '已是正序',icon: 'none'})
     } else {
       var bchearr = achearr.reverse();
       this.setData({
@@ -357,17 +358,8 @@ Page({
   //倒序
   back() {
     var achearr = this.data.menuData;
-    if (achearr[0].musicId != 1) {
-      wx.showToast({
-        title: '已是倒序',
-        icon: 'none',
-        image: '',
-        duration: 500,
-        mask: true,
-        success: function (res) { },
-        fail: function (res) { },
-        complete: function (res) { },
-      })
+    if (achearr.length == 1) {
+      wx.showToast({title: '已是倒序',icon: 'none'})
     } else {
       var bchearr = achearr.reverse();
       this.setData({
@@ -498,10 +490,10 @@ Page({
       success(res) {
         that.setData({
           payShow:false,
+          isSinglePay:true
         })
         //请求判断是不是会员接口
         that.musicControl(true,that.data.musicId);
-        // that.nextMusic()
       },
       fail(res) {
         wx.showToast({ title: "支付失败,请求重试", icon: "none" });
@@ -535,22 +527,23 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    let currentIndex= this.data.currentIndex
-    let progress = this.data.progress
-    let progressText = this.data.progressText
-    let duration = this.data.duration
-    let durationText = this.data.durationText
-    let musicId = this.data.musicId
-    let playData=this.data.playData
-    let record = new Object()
-    record.currentIndex = currentIndex
-    record.musicId = musicId
-    record.progress = progress
-    record.progressText = progressText
-    record.duration = duration
-    record.durationText = durationText
-    record.playData=playData
-    wx.setStorageSync("record", record)
+    // console.log("关闭")
+    // let currentIndex= this.data.currentIndex
+    // let progress = this.data.progress
+    // let progressText = this.data.progressText
+    // let duration = this.data.duration
+    // let durationText = this.data.durationText
+    // let musicId = this.data.musicId
+    // let playData=this.data.playData
+    // let record = new Object()
+    // record.currentIndex = currentIndex
+    // record.musicId = musicId
+    // record.progress = progress
+    // record.progressText = progressText
+    // record.duration = duration
+    // record.durationText = durationText
+    // record.playData=playData
+    // wx.setStorageSync("record", record)
   },
 
   /**

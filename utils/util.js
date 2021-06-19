@@ -43,6 +43,12 @@ function dateFormatter(nows) {
 function checkAddZone (num) {
   return num<10 ? '0' + num.toString() : num
 }
+// 百分数转化为小数
+function toPoint(percent){
+  var str=percent.replace("%","");
+  str= str/100;
+  return str;
+}
 /**
  * 
  * url  要跳转的路径
@@ -53,6 +59,7 @@ function checkAddZone (num) {
  const checkLogin=async function  checkLogin (url,path,isLogin,type){
   var response = await account.checkSession();
   let token = wx.getStorageSync('userInfo').token;
+  console.log(token,'token')
   if((!response || token==undefined)&& isLogin){
     // wx.showToast({
     //   title: "请先授权登录！",
@@ -89,5 +96,6 @@ module.exports = {
   formatTime,
   setStorage,
   dateFormatter,
-  checkLogin
+  checkLogin,
+  toPoint
 }

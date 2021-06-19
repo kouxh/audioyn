@@ -15,10 +15,13 @@
   align-items: center;
   margin-top: 300rpx;
 }
+button::after{
+  border: none;
+}
 .user-btn{
   width: 515rpx;
 	height: 66rpx;
-	border-radius: 32rpx;
+	border-radius: 34rpx;
   border: solid 1rpx #d1d1d1;
   background-color: transparent;
   font-size: 28rpx;
@@ -57,14 +60,14 @@
 	background-image: linear-gradient(0deg, 
 		#e72828 0%, 
 		#f99292 100%);
-  border-radius: 18rpx;
+  border-radius: 25rpx;
   margin: 0 auto;
   margin-top: 36rpx;
   font-size: 24rpx;
   color: #ffffff;
   line-height: 50rpx;
   text-align: center;
-  border: #e72828;
+  border: solid 1rpx#e72828 ;
 }
 .phone-img{
   position: absolute;

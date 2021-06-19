@@ -3,7 +3,7 @@
     <view class="title-box">
       <view class="item" bindtap='selectTap'>
         <text class="item-text">《管理会计研究》{{maName?maName:yearOption[0]}}</text>
-        <icon class="iconfont icon-sanjiao {{selectShow&&'select_img_rotate'}}"></icon>
+        <icon wx:if="{{mId==''}}" class="iconfont icon-sanjiao {{selectShow&&'select_img_rotate'}}"></icon>
       </view>
       <view class="select_box" wx:if="{{selectShow}}">
         <block wx:for="{{yearOption}}" wx:key="index">
@@ -12,7 +12,7 @@
       </view>
       <view class="item" bindtap='selectOption'>
         <text class="item-text">{{timeName?timeName:timeOption[0].title}}</text>
-        <icon class="iconfont icon-sanjiao {{selectOption&&'select_img_rotate'}}"></icon>
+        <icon wx:if="{{mId==''}}" class="iconfont icon-sanjiao {{selectOption&&'select_img_rotate'}}"></icon>
       </view>
       <view class="select_box time-select" wx:if="{{selectOption}}">
         <block wx:for="{{timeOption}}" wx:key="m_id">

@@ -28,7 +28,7 @@
           <icon class="iconfont icon-jieting"></icon>
           <text class="input-title">注册手机</text>
           <input class="input" type="number" value="{{info.tell}}" maxlength="11" placeholder="请输入手机号"
-            bindinput="handleInput" id="info.tell" placeholder-class="pla" disabled/>
+            bindinput="handleInput" id="info.tell" placeholder-class="pla" disabled />
         </view>
         <view class="every-info">
           <icon class="iconfont icon-youxiang"></icon>
@@ -66,27 +66,28 @@
         <view class="every-info">
           <icon class="iconfont icon-gongsimingcheng"></icon>
           <text class="input-title">职位</text>
-          <van-dropdown-menu >
+          <van-dropdown-menu>
             <van-dropdown-item value="{{ occValue }}" options="{{ occOption }}" bind:change="occOptionChange" />
           </van-dropdown-menu>
         </view>
         <view class="change-btn" bindtap="changeInfo">提交</view>
       </view>
-      <view class="history-box" wx:elif="{{tabsActive!=0}}">
+      <view class="history-box" wx:elif="{{tabsActive!=0 && tabsActive!=3}}">
         <!-- 加载中 -->
         <view wx:if="{{listShowType==0}}">
           <van-loading type="spinner" class="loading" />
         </view>
         <!-- 有内容 -->
         <view wx:if="{{listShowType==1}}">
-          <block wx:for="{{dataList}}" wx:key="mwa_id">
-            <navigator class="history-item" navigator hover-class="none" url="/pages-homes/play/index?mwaId={{item.mwa_id}}">
+          <block wx:for="{{dataList}}" wx:key="index">
+            <view class="history-item" bindtap="listFn" data-id="{{item.mwa_id}}"
+              data-speed="{{item.mwrl_speed}}" wx:if="{{item.mwa_title}}">
               <view class="history-l">
-                <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
+                <image mode='aspectFill' src="{{item.mwa_img?item.mwa_img:'/assets/img/book.png'}}" alt class="img" />
               </view>
               <view class="history-r">
                 <view class="r-content">
-                  <view class="r-title ellipsis1row">{{item.mwa_title}}</view>
+                  <view class="r-title ellipsis2row">{{item.mwa_title}}</view>
                   <view class="r-operation" wx:if="{{tabsActive==1}}">
                     <icon class="iconfont icon-erji "></icon>
                     <text class="num">{{util.largeNumber(item.mwa_num,2)}}</text>
@@ -95,69 +96,48 @@
                   </view>
                   <view class="r-operation" wx:elif="{{tabsActive==2}}">
                     <icon class="iconfont icon-lishibofang "></icon>
-                    <text class="time">10.00</text>
-                    <text class="bar">|</text>
-                    <text>已播放{{item.mwrl_speed}}</text>
+                    <!-- <text class="time">10.00</text>
+                    <text class="bar">|</text> -->
+                    <text class="time">已播放{{item.mwrl_speed}}</text>
                     <text class="bar">|</text>
                     <text>{{item.mwa_author}}</text>
                   </view>
-                  <view class="r-operation" wx:else="{{tabsActive==3}}">
-                    <icon class="iconfont icon-qian1 "></icon>
-                    <text class="time">共计：￥{{item.price}}</text>
-                    <text class="bar1">|</text>
-                    <text>购买时间：{{item.time}}</text>
-                  </view>
                 </view>
-                <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
               </view>
-            </navigator>
+            </view>
           </block>
-          <view class="history-item" wx:if="{{tabsActive==3&&vipData}}">
-            <view class="history-l">
-              <image mode='aspectFill' src="/assets/img/vip-img.png" alt class="img" />
-            </view>
-            <view class="history-r">
-              <view class="r-content">
-                <view class="r-title ellipsis1row">CMAS随时听会员{{vipData.title}}</view>
-                <view class="r-operation vip-operation">
-                  <icon class="iconfont icon-qian1 "></icon>
-                  <text class="time">共计：￥{{vipData.price}}</text>
-                  <text class="bar1">|</text>
-                  <text>购买时间：{{vipData.time}}</text>
-                </view>
-              </view>
-              <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
-            </view>
+          <view class="loaded-tips" wx:if="{{!finished}}">
+            下滑加载更多
+            <icon class="iconfont icon-xiangxiajiantou1 jiantou"></icon>
+            <icon class="iconfont icon-xiangxiajiantou jiantou1"></icon>
           </view>
+          <view class="loaded-tips" wx:if="{{finished}}">我是有底线的o(╥﹏╥)o</view>
         </view>
         <!-- 无内容 -->
         <view wx:if="{{listShowType==2}}">
           <view class="nomsg-img-box">
-              <image wx:if="tabsActive==3" mode='aspectFill'
-              src="https://march.yuanian.com/static/assets/img/not-vip.png" alt
-              class="nomsg-img" />
-              <image wx:else mode='aspectFill'
-              src="https://march.yuanian.com/static/assets/img/none.png" alt
+            <image wx:if="tabsActive==3" mode='aspectFill' src="https://march.yuanian.com/static/assets/img/not-vip.png"
+              alt class="nomsg-img" />
+            <image wx:else mode='aspectFill' src="https://march.yuanian.com/static/assets/img/none.png" alt
               class="nomsg-img" />
             <view class="tips-msg">暂无数据记录</view>
           </view>
         </view>
       </view>
-      <!-- <view class="buy-box" wx:else="{{tabsActive==3}}"> -->
-      <!-- 加载中 -->
-      <!-- <view wx:if="{{buyShowType==0}}">
+      <view class="buy-box" wx:else="{{tabsActive==3}}">
+        <!-- 加载中 -->
+        <view wx:if="{{buyShowType==0}}">
           <van-loading type="spinner" class="loading" />
         </view>
         <view wx:if="{{buyShowType==1}}">
-          <black wx:for="{{buyData}}" wx:key="id">
+          <black wx:for="{{buyData}}" wx:key="index">
             <view class="history-item">
               <view class="history-l">
-                <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
+                <image mode='aspectFill' src="{{item.img}}" alt class="img" />
               </view>
               <view class="history-r">
                 <view class="r-content">
-                  <view class="r-title ellipsis1row">{{item.name}}</view>
-                  <view class="r-sub ellipsis1row"> {{item.sub}}</view>
+                  <view class="r-title ellipsis2row">{{item.title}}</view>
                   <view class="r-operation">
                     <icon class="iconfont icon-qian1 "></icon>
                     <text class="time">共计：￥{{item.price}}</text>
@@ -165,38 +145,38 @@
                     <text>购买时间：{{item.time}}</text>
                   </view>
                 </view>
-                <icon class="iconfont icon-quxiao r-del"></icon>
               </view>
             </view>
           </black>
-          <view class="history-item">
-          <view class="history-l">
-            <image mode='aspectFill' src="/assets/img/vip-img.png" alt class="img" />
-          </view>
-          <view class="history-r">
-            <view class="r-content">
-              <view class="r-title ellipsis1row">CMAS随时听会员 1个月</view>
-              <view class="r-operation vip-operation">
-                <icon class="iconfont icon-qian1 "></icon>
-                <text class="time">共计：￥12.00</text>
-                <text class="bar1">|</text>
-                <text>购买时间：2021-04-28</text>
+          
+          <block wx:for="{{vipData}}" wx:key="title">
+            <view class="history-item">
+            <view class="history-l">
+              <image mode='aspectFill' src="/assets/img/vip-img.png" alt class="img" />
+            </view>
+            <view class="history-r">
+              <view class="r-content">
+                <view class="r-title ellipsis1row">CMAS随时听会员{{item.title}}</view>
+                <view class="r-operation vip-operation">
+                  <icon class="iconfont icon-qian1 "></icon>
+                  <text class="time">共计：￥{{item.price}}</text>
+                  <text class="bar1">|</text>
+                  <text>购买时间：{{item.time}}</text>
+                </view>
               </view>
             </view>
-            <icon class="iconfont icon-quxiao r-del"></icon>
-          </view>
+            </view>
+          </block>
+          <view class="loaded-tips" wx:if="{{buyfinished}}">我是有底线的o(╥﹏╥)o</view>
         </view>
-        </view> -->
-      <!-- 无内容 -->
-      <!-- <view  wx:if="{{buyShowType==2}}">
+        <!-- 无内容 -->
+        <view wx:if="{{buyShowType==2}}">
           <view class="nomsg-img-box">
-            <image mode='aspectFill'
-              src="https://march.yuanian.com/static/assets/img/none.png" alt
-              class="nomsg-img" />
+            <image mode='aspectFill' src="https://march.yuanian.com/static/assets/img/none.png" alt class="nomsg-img" />
             <view class="tips-msg">暂无数据记录</view>
           </view>
-        </view> -->
-      <!-- </view> -->
+        </view>
+      </view>
     </view>
   </view>
   <van-popup show="{{ calendarShow }}" round position="bottom" bind:close="onClose">

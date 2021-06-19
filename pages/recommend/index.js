@@ -33,7 +33,6 @@ onTabItemTap: function (item) {
 recommendListFn(){
   let that = this;
   getApp().globalData.api.recommendList({
-    
   }).then(res=>{
     if(res.bol==true){
       that.setData({
@@ -56,7 +55,7 @@ let _this = this.data;
 })
 if(_this.total / _this.pageSize > _this.pageIndex){
   that.setData({
-    listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, (_this.pageIndex-1) * _this.pageSize)),
+    listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex * _this.pageSize)),
     pageIndex: _this.pageIndex + 1 ,
   })
 }else{
@@ -70,51 +69,7 @@ setTimeout(function () {
 }, 300);
 wx.hideLoading();
 },
-//表单项内容发生改变
-handleInputChange(event) {
-  this.setData({
-    searchContent: event.detail.value.trim()
-  })
-  if(isSend){
-    return;
-  }
-  isSend = true;
-  
-  //发请求获取搜索匹配到的数据
-  // this.getSearchListData();
 
-  //函数节流
-  setTimeout(() => {
-    isSend = false;
-  }, 500);
-},
-//清空搜索内容
-handleClear(){
-  this.setData({
-    searchContent: '',
-    // searchList: []
-  })
-},
-//tab栏切换
-onChange(event) {
-  console.log(event)
-  wx.pageScrollTo({
-    scrollTop: 0,
-    duration: 300
-  });
-  wx.showToast({
-    title: `切换到标签 ${event.detail.name}`,
-    icon: 'none',
-  });
-  this.setData({
-    active:event.detail.index,
-    listShowType: 1,
-    finished: false,
-    // listData: [],
-  });
-  console.log(this.data.active)
-  //请求列表接口
-},
   // 得到积分记录列表
   // getListFn() {
   //   let that = this;

@@ -91,7 +91,7 @@ let _this = this.data;
 })
 if(_this.total / _this.pageSize > _this.pageIndex){
   that.setData({
-    listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, (_this.pageIndex-1) * _this.pageSize)),
+    listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex * _this.pageSize)),
     pageIndex: _this.pageIndex + 1 ,
   })
 }else{
@@ -144,7 +144,9 @@ wx.hideLoading();
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if(!this.data.finished){
+      this.loadmore();
+    }
   },
 
   /**

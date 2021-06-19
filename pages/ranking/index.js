@@ -40,7 +40,7 @@ Page({
         AllData:res.data,
         total:res.data.length
       });
-      console.log(res.data)
+     
       this.loadmore();
     }else{
       wx.showToast({ title: res.data.msg, icon: "none" });
@@ -57,7 +57,7 @@ Page({
     })
     if(_this.total / _this.pageSize > _this.pageIndex){
       that.setData({
-        listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, (_this.pageIndex-1) * _this.pageSize)),
+        listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex * _this.pageSize)),
         pageIndex: _this.pageIndex + 1 ,
       })
     }else{

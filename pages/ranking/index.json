@@ -6,6 +6,5 @@
     "van-loading": "@vant/weapp/loading/index",
     "item-list":"/components/list/index"
   },
-  "enablePullDownRefresh": true,
   "onReachBottomDistance":100
 }

@@ -1,73 +1,33 @@
 // pages/home/index.js
 import regeneratorRuntime from "../../libs/regenerator/runtime-module";
 import {checkLogin} from "../../utils/util";
-const backgroundAudioManager=wx.getBackgroundAudioManager()
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    isMusicPlay: '',//全局是否播放
-    musicId:'',//全局播放id
+    isMusicPlay: getApp().globalData.isMusicPlay,//全局是否播放
+    musicId:getApp().globalData.musicId,//全局播放id
     currentIndex: 0,//当前轮播图的索引
-    propData:[{
-        event_value:1,
-        event_type:1,
-        images_url:'http://p1.music.126.net/oeH9rlBAj3UNkhOmfog8Hw==/109951164169407335.jpg'
-        },
-        {
-          event_value:2,
-          event_type:2,
-          images_url:'http://p1.music.126.net/xhWAaHI-SIYP8ZMzL9NOqg==/109951164167032995.jpg'
-        }
-      ,{
-        event_value:3,
-        event_type:3,
-        images_url:'http://p1.music.126.net/Yo-FjrJTQ9clkDkuUCTtUg==/109951164169441928.jpg'
-      }
-    ],//轮播图数据
+    propData:[],//轮播图数据
+    bookImg:[],//书的图片
     column:[],//栏目数组
     recentData:[],//最近收听
-    listData: [
-      {
-        id:1,
-        img:"https://march.yuanian.com/static/assets/img/none.png",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      },
-      {
-        id:2,
-        img:"https://march.yuanian.com/static/assets/img/none.png",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      },
-     
-    ], //CMAS列表数组
+    listData: [], //CMAS列表数组
     maData:[],//音频杂志杂志数据
     newList:[],//重新组合的猜你喜欢数组
-    likeData:[
-      { name:"音频标题标题标题标题标题标题1",
-        column:'栏目'
-      },
-    ],//猜你喜欢数组
+    likeData:[],//猜你喜欢数组
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that=this;
-    //首页数据
-    that.listDataFn();
+    // let that=this;
     //换一批功能
-    that.chooseEvent();
-    console.log(backgroundAudioManager,'----')
+    // that.chooseEvent();
   },
+ 
   //首页数据
  listDataFn(){
   let that = this;
@@ -79,12 +39,16 @@ Page({
     header: {
       'content-type': 'application/json',
     },
+    data:{
+      uid:wx.getStorageSync('userInfo').uid,
+    },
     success: function (res) {
       if(res.data.bol){
           that.setData({
-            // propData: res.data.adver,//轮播图
-            recentData: res.data.recent, //最近收听
+            propData: res.data.data.advert,//轮播图
+            recentData: res.data.data.recent, //最近收听
             column:res.data.data.column,//栏目
+            bookImg:res.data.data.middle_advert,//广告书
             listData:res.data.data.top_two,
             maData:res.data.data.ma_new_two,
             likeData:res.data.data.top_five,
@@ -128,8 +92,10 @@ Page({
   },
   //点击历史收听
   listenFn(e){
+    console.log(e)
     let listenId=e.currentTarget.dataset.id;
-    checkLogin('/pages-homes/play/index?mwaId='+listenId,1,true,1);
+    let speed =e.currentTarget.dataset.speed;
+    checkLogin(`/pages-homes/play/index?mwaId=${listenId}&speed=${speed}`,1,true,1);
   },
   //点击栏目跳转
   columnFn(e){
@@ -152,10 +118,18 @@ Page({
   toSearch(){
     checkLogin('/pages-homes/search1/index',1,true,1);
   },
+  //返回当前播放页
   backFn(){
     wx.navigateTo({
       url: '/pages-homes/play/index?mwaId='+ this.data.musicId,
     })
+  },
+  //单期杂志
+  singleFn(e){
+    let mId=e.currentTarget.dataset.id;
+    let title=e.currentTarget.dataset.title;
+    let year=e.currentTarget.dataset.year;
+    checkLogin(`/pages-homes/magazine/index?mId=${mId}&title=${title}&year=${year}`,1,true,1);
   },
   
   /**
@@ -169,12 +143,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    //首页数据
+    this.listDataFn();
     this.setData({
       isMusicPlay:getApp().globalData.isMusicPlay,
       musicId:getApp().globalData.musicId
     })
     console.log(getApp().globalData.isMusicPlay,getApp().globalData.musicId,'====')
-    console.log(backgroundAudioManager,'----')
   },
 
   /**
@@ -195,40 +170,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    // var self = this;
-	 	// setTimeout(() => {
-	  // 	// 模拟请求数据，并渲染
-		//   	var arr = self.data.dataList, max = Math.max(...arr);
-		//   	for (var i = max + 1; i <= max + 3; ++i) {
-		// 		arr.unshift(i);
-		// 	}
-	  // 		self.setData({ dataList: arr });
-		// 	  // 数据成功后，停止下拉刷新
-		// 	wx.stopPullDownRefresh();
-		//  }, 1000);
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    // this.moreFn();
-    // var arr = this.data.dataList, max = Math.max(...arr);
-	 	// if (this.data.count < 3) {
-		//   	for (var i = max + 1; i <= max + 5; ++i) {
-		//   		arr.push(i);
-		//   	}
-		// 	this.setData({
-		// 	  dataList: arr,
-		// 	  count: ++this.data.count
-		// 	 });
-	 	// } else {
-		// 	wx.showToast({
-		// 	  title: '没有更多数据了！',
-		// 	  image: '../../src/images/noData.png',
-		// 	})
-	 	// }
- 	
+
   },
 
   /**

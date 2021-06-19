@@ -8,15 +8,13 @@ Page({
    */
   data: {
     tabsActive:0,//默认tabs栏
-    historyData:[
-      { id:1,
-        name:'《管理会计研究》 杂志第一期',
-        sub:'第21章  《管理会计研究》第一期_021',
-        duration:'10:00',
-        progress:'10%',
-        author:'作者姓名'
-      },
-    ],//最近收听数据
+    AllData:[],//总数组
+    pageIndex: 1,
+    pageSize: 10,
+    total: 0, //列表总条数
+    finished: false,//数据是否加载完成
+    buyfinished:false,//购买数据是否加载完成
+    dataList:[],//最近收听数据
     listShowType: 1, // 列表显示状态 0加载中 1有 2无
     info:{
       name:"",
@@ -28,15 +26,9 @@ Page({
       company:"",
       occupation:"管理者"
     },
-    buyData:[
-      { id:1,
-        name:'《管理会计研究》 杂志第一期',
-        sub:'第21章  《管理会计研究》第一期_021',
-        time:'2021-04-28',
-        price:'1.00',
-      },
-    ],//
-    buyShowType: 1, // 列表显示状态 0加载中 1有 2无
+    buyData:[],//购买列表
+    vipData:[],//购买VIP数据
+    buyShowType: 0, // 列表显示状态 0加载中 1有 2无
     calendarShow:false,//是否展示显示日期弹框
     minDate: new Date(1960, 0, 1).getTime(),
     maxDate: new Date(2030, 12, 1).getTime(),
@@ -66,8 +58,7 @@ Page({
       { text: '其他', value: 3 },
     ],
     userInfo: "", //用户信息
-    dataList:[],
-    vipData:{},
+  
   },
  
 
@@ -104,20 +95,17 @@ Page({
   },
   //tabs栏切换
   onChange(event) {
-    let listData='';
     let currentIndex=event.detail.index;
     this.setData({
     listShowType:0,
-    dataList:[]
+    dataList:[],
+    buyShowType:0,
+    buyData:[]
     })
     wx.pageScrollTo({
       scrollTop: 0,
       duration: 300
     });
-    // wx.showLoading({
-    //   title: '加载中...',
-    //   mask: true
-    // })
     if(currentIndex==0){
       this.getUserInfoFn()
     }else if(currentIndex==1){
@@ -127,9 +115,6 @@ Page({
     }else if(currentIndex==3){
       this.purchaseRecordsFn();
     }
-    setTimeout(() => {
-      // wx.hideLoading();
-    },200)
     this.setData({
       tabsActive:currentIndex
     })
@@ -140,8 +125,7 @@ Page({
     getApp().globalData.api.getUserInfo({
       uid:wx.getStorageSync('userInfo').uid,
     }).then(res=>{
-      console.log(res)
-      if(res.bol==true){
+      if(res.bol){
         that.setData({
           info:res.data,
         });
@@ -156,12 +140,13 @@ Page({
     getApp().globalData.api.collectionList({
       uid:wx.getStorageSync('userInfo').uid,
     }).then(res=>{
-      console.log(res)
-      if(res.bol==true){
+      if(res.bol){
         that.setData({
-          dataList:res.data,
-          listShowType: res.data.length>0 ? 1 : 2 
+          AllData:res.data,
+          total:res.data.length
         });
+      
+        this.loadmore();
       }else{
         wx.showToast({ title: res.data.msg, icon: "none" });
       }
@@ -175,9 +160,11 @@ Page({
     }).then(res=>{
       if(res.bol){
         that.setData({
-          dataList:res.data,
-          listShowType: res.data.length>0 ? 1 : 2 
+          AllData:res.data,
+          total:res.data.length
         });
+       
+        this.loadmore();
       }else{
         wx.showToast({ title: res.data.msg, icon: "none" });
       }
@@ -191,14 +178,41 @@ Page({
     }).then(res=>{
       if(res.bol){
         that.setData({
-          // dataList:res.data,
+          buyData:res.data.audio,
           vipData:res.data.vip,
-          listShowType: res.data ? 1 : 2 
+          buyShowType:(res.data.audio.length|| res.data.vip.length)? 1 : 2,
+          buyfinished:(res.data.audio.length|| res.data.vip.length)? true : false
         });
+        console.log(this.data.buyShowType)
       }else{
         wx.showToast({ title: res.data.msg, icon: "none" });
       }
     })
+  },
+   // 滑动加载
+   loadmore(){
+    let that=this;
+    let _this = this.data;
+    //  //加载提示
+      wx.showLoading({
+      title: '加载中',
+    })
+    if(_this.total / _this.pageSize > _this.pageIndex){
+      that.setData({
+        dataList:_this.dataList.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex * _this.pageSize)),
+        pageIndex: _this.pageIndex + 1 ,
+      })
+     
+    }else{
+      that.setData({
+        dataList:_this.AllData,
+        finished: true,// 数据全部加载完成
+      })
+    }
+    setTimeout(function () {
+      that.setData({ listShowType: _this.total ? 1 : 2 });
+    }, 300);
+    wx.hideLoading();
   },
   // 切换性别
   onSwitch(event) {
@@ -260,7 +274,6 @@ Page({
   //表单项内容发生改变的回调
   handleInput(event){
     let type=event.currentTarget.id;
-    console.log(type,event.detail.value);
     this.setData({
       [type]:event.detail.value
     })
@@ -310,6 +323,15 @@ Page({
       }
     })
   },
+  listFn(e){
+    let mwaId=e.currentTarget.dataset.id
+    let speed=e.currentTarget.dataset.speed
+    wx.navigateTo({
+      url: `/pages-homes/play/index?mwaId=${mwaId}&speed=${speed}` ,
+    })
+    
+  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -349,7 +371,9 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if(!this.data.finished){
+      this.loadmore();
+    }
   },
 
   /**

@@ -14,25 +14,22 @@
 }
 
 .input-box {
+  position: relative;
   padding: 40rpx 52rpx;
 }
 .search {
   position: absolute;
-  /* top: 24rpx; */
   left: 60rpx;
-  color: #F28883;
-  top: 38rpx;
-  font-size: 45rpx;
+   /* top: 38rpx; */
+   color: #ffb7b7;
+   font-size: 45rpx;
+   display: flex;
+   align-items: center;
+   height: 56rpx;
+   justify-content: center;
 }
 
-.clear {
-  position: absolute;
-  right: 72rpx;
-  top: 50rpx;
-  font-size: 30rpx;
-  z-index: 10;
-  color: #F28883;
-}
+
 .input-img {
   /* width: 647rpx; */
   height: 50rpx !important;
@@ -40,8 +37,6 @@
   border: solid 2rpx #F28883;
   padding-left: 50rpx;
   font-size: 22rpx;
-  flex: 1;
-  /* background-color: #E93D35; */
 }
 .magazine-box {
   margin: -160rpx 52rpx 0rpx 52rpx;

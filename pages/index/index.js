@@ -1,10 +1,6 @@
 // index.js
 import regeneratorRuntime from "../../libs/regenerator/runtime-module";
 import account from "../../api/loginCode.js";
-
-// 获取应用实例
-// const app = getApp()
-
 Page({
   data: {
     userInfo: '',
@@ -16,9 +12,11 @@ Page({
     encryptedInfo:'',
     ivInfo:'',
     phoneShow: true,
-    pagePlay:''//分享标识
+    pagePlay:'',//分享标识
+    code:""
   },
   onLoad(options) {
+    console.log(options,'-----')
     this.setData({
       pagePlay: options.pagePlay,
     })
@@ -26,13 +24,9 @@ Page({
       let hasBindMobile = wx.getStorageSync('hasBindMobile');
       let userInfo=wx.getStorageSync('userInfo');
       if(hasBindMobile&&userInfo){
-      //   this.setData({
-      //     hasBindMobile:hasBindMobile,
-      //     userInfo:userInfo
-      //  })
-       wx.switchTab({
-        url: "/pages/home/index"
-      })
+        wx.switchTab({
+          url: "/pages/home/index"
+        })
       }
     if (wx.getUserProfile) {
       this.setData({
@@ -82,11 +76,11 @@ Page({
   },
    // 手机号授权
    async getPhoneNumber (e) {
-    var resCode = await account.getWxCode();
+    // var resCode = await account.getWxCode();
     let that = this;
     if (e.detail.encryptedData) {
           var datas = {
-            code:resCode.code,
+            code:that.data.code,
             encryptedDataInfo: that.data.encryptedInfo,
             ivInfo: that.data.ivInfo,
             encryptedDataPhone: e.detail.encryptedData,
@@ -103,16 +97,9 @@ Page({
             .globalData.api.login({json:jsonStr})
             .then(res1 => {
               if(!res1.bol){
-                    wx.showToast({
-                      title: "绑定失败",
-                      icon: "none"
-                    });
+                wx.showToast({ title: "绑定失败",icon: "none"});
               }else{
-                  wx.showToast({
-                      title: '登录成功',
-                      icon: 'success',
-                      duration: 2000
-                });
+                wx.showToast({title: '登录成功',icon: 'success',duration: 2000});
                 this.setData({
                   phoneShow:false
                 })
@@ -149,4 +136,20 @@ Page({
     }
     
   },
+   /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    let that=this;
+     //登录态刷新
+     wx.login({
+      success(res) {
+        if(res.code){
+          that.setData({
+            code:res.code
+          })
+        }
+      }
+    })
+  }
 })

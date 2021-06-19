@@ -18,7 +18,7 @@
           <text class="ranking">{{index+1}}</text>
         </view>
         <view class="item-l">
-          <image mode='aspectFill' src="{{item.img}}" alt class="img" />
+          <image mode='aspectFill' src="{{item.mwa_img}}" alt class="img" />
         </view>
         <view class="item-r">
           <view class="r-title ellipsis2row">{{item.mwa_title}} </view>
@@ -29,22 +29,6 @@
               <view class="bar"></view>
               <view class="author">{{item.mwa_author}}</view>
             </view>
-            <!-- <icon class="iconfont icon-gengduo iconbg" catchtap="onEdit" data-id="{{item.id}}" data-idx="{{index}}">
-            </icon>
-            <view class="balloon" wx:if="{{item.isBalloon}}">
-              <view class="balloon-content">
-                <icon class="iconfont icon-fenxiang01 shareicon"></icon>
-                <view class="share">分享</view>
-              </view>
-              <view class="balloon-content">
-                <icon class="iconfont icon-shoucang-shixin shareicon checked"></icon>
-                <view class="share">收藏</view>
-              </view>
-              <view class="balloon-content">
-                <icon class="iconfont icon-zhuanji shareicon"></icon>
-                <view class="share">查看专辑</view>
-              </view>
-            </view> -->
           </view>
         </view>
       </navigator>

@@ -1,7 +1,8 @@
 /* pages/home/index.wxss */
-page{
+page {
   background-color: #f3f4f6;
 }
+
 .pages-home-index {
   width: 100%;
   height: 100vh;
@@ -15,7 +16,7 @@ page{
 }
 
 .header-box {
-  padding-bottom:40rpx;
+  padding-bottom: 40rpx;
 }
 
 .header-banner {
@@ -33,18 +34,20 @@ page{
 
 .search {
   position: absolute;
-  /* top: 24rpx; */
   left: 60rpx;
-  color: #F28883;
-  top: 38rpx;
+  /* top: 38rpx; */
+  color: #ffb7b7;
   font-size: 45rpx;
+  display: flex;
+  align-items: center;
+  height: 56rpx;
+  justify-content: center;
 }
 
 .input-img {
-  /* width: 647rpx; */
   height: 50rpx !important;
   border-radius: 30rpx;
-  border: solid 2rpx #F28883;
+  border: solid 2rpx #ffb7b7;
   padding-left: 50rpx;
   font-size: 22rpx;
 }
@@ -77,29 +80,33 @@ page{
   margin-top: -160rpx;
 
 }
-.dots{
+
+.dots {
   width: 100%;
   display: flex;
   align-items: center;
   margin-top: 22rpx;
   justify-content: center;
 }
-.dot{
+
+.dot {
   width: 12rpx;
   height: 12rpx;
   border-radius: 50%;
   background-color: #e8e8e8;
 }
-.dot-r{
+
+.dot-r {
   margin-right: 20rpx;
 }
-.active-dot{
+
+.active-dot {
   width: 22rpx;
-	height: 10rpx;
-	background-image: linear-gradient(268deg, 
-		#fa6d66 0%, 
-		#ffc8c5 100%);
-	border-radius: 4rpx;
+  height: 10rpx;
+  background-image: linear-gradient(268deg,
+      #fa6d66 0%,
+      #ffc8c5 100%);
+  border-radius: 4rpx;
 }
 
 
@@ -142,7 +149,7 @@ page{
 }
 
 .tit-tip {
-  width: 5rpx;
+  width: 7rpx;
   height: 21rpx;
   background-color: #e73128;
 }
@@ -151,10 +158,12 @@ page{
   display: flex;
   height: 200rpx;
 }
-.listenScroll-box{
+
+.listenScroll-box {
   display: flex;
   padding: 0 48rpx;
 }
+
 .scrollItem {
   width: 400rpx;
   height: 125rpx;
@@ -166,9 +175,10 @@ page{
   padding: 20rpx;
   margin-right: 22rpx;
 }
-.scrollItem:last-child{
+
+.scrollItem:last-child {
   margin-right: 0rpx;
-} 
+}
 
 .scrollItem-r {
   height: 125rpx;
@@ -227,15 +237,16 @@ page{
 }
 
 .hot-author {
-  font-size: 20rpx;
+  font-size: 18rpx;
   line-height: 22rpx;
   color: #666666;
 }
-.hot-describe{
+
+.hot-describe {
   width: 378rpx;
-    position: absolute;
-    top: 100rpx;
-    left: 95rpx;
+  position: absolute;
+  top: 98rpx;
+  left: 95rpx;
 }
 
 .hot-r {
@@ -350,7 +361,7 @@ page{
 
 .mz-box {
   display: flex;
-  padding: 0rpx 30rpx 0rpx;
+  padding: 0rpx 38rpx 0rpx;
 }
 
 .mz-item {
@@ -364,9 +375,9 @@ page{
 
 .mz-item-img {
   width: 134rpx;
-	height: 155rpx;
-	background-color: #999999;
-	border-radius: 9rpx;
+  height: 155rpx;
+  background-color: #999999;
+  border-radius: 9rpx;
 }
 
 .mz-item-title {
@@ -386,28 +397,32 @@ page{
   padding: 0rpx 52rpx 30rpx;
   margin-top: -20rpx;
 }
+
 /* 禁止scroll-view 滚动条 */
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
-  }
+}
 
 .list-item {
   font-size: 24rpx;
   line-height: 36rpx;
   color: #333333;
 }
-.mean{
+
+.mean {
   font-size: 22rpx;
   color: #e73128;
   margin-right: 10rpx;
 }
-.column{
+
+.column {
   font-size: 20rpx;
-	color: #666666;
+  color: #666666;
 }
-.float-popup{
+
+.float-popup {
   position: fixed;
   right: 40rpx;
   bottom: 80rpx;
@@ -415,13 +430,15 @@ page{
 
 .discAnimation {
   animation: disc 10s linear infinite;
-  animation-delay: 1s;
+  /* animation-delay: 0s; */
 }
+
 /*设置动画帧 1.from to(只有起始帧和结束帧)  2.百分比(不止两帧)*/
-@keyframes disc{
+@keyframes disc {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

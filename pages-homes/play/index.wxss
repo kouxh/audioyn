@@ -92,12 +92,14 @@
     transform: rotate(360deg);
   }
 }
-
+button::after{
+  border: none;
+}
 .circle {
   position: absolute;
   left: 50%;
-  transform: translate(-50%, 0rpx);
-  top: 182rpx;
+  transform: translate(-50.5%, 0rpx);
+  top: 184rpx;
   width: 420rpx;
   height: 420rpx;
   border-radius: 50%;
@@ -120,7 +122,7 @@
   width: 300rpx;
   height: 300rpx;
   border-radius: 50%;
-  border: 2rpx solid #c11616;
+  border: 1rpx solid #c11616;
   background-image: linear-gradient(-1deg,
       #c11616 0%,
       #dc4848 25%,
@@ -141,7 +143,7 @@
   width: 350rpx;
   height: 350rpx;
   border-radius: 50%;
-  border: 2rpx solid #dc4848;
+  border: 1rpx solid #dc4848;
   opacity: 0.3;
   animation: myfirst2 2s infinite linear;
   animation-delay: 1s;
@@ -154,7 +156,7 @@
   width: 400rpx;
   height: 400rpx;
   border-radius: 50%;
-  border: 2rpx solid #f67979;
+  border: 1rpx solid #f67979;
   opacity: 0.3;
   animation: myfirst3 2s infinite linear;
   animation-delay: 1s;
@@ -245,10 +247,10 @@ button{
   background-color: transparent;
 }
 .share-box {
-  width: 180rpx;
+  width: 190rpx;
   height: 45rpx;
   border-radius: 22rpx;
-  border: solid 1rpx #999999;
+  border: solid 1rpx #bbb;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 630rpx);
@@ -279,6 +281,7 @@ button{
 }
 .progress .bar {
   flex: 1;
+  /* background-color: #e8e8e8; */
 }
 .progress text {
   flex-basis: 90rpx;
@@ -298,9 +301,11 @@ button{
 }
 .control .item {
   width: 120rpx;
+  height: 100rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 .control .item .word {
   font-size: 20rpx;
@@ -330,7 +335,7 @@ button{
   width: 178rpx;
   height: 45rpx;
   border-radius: 22rpx;
-  border: solid 1rpx #999999;
+  border: solid 1rpx #bbb;
   font-size: 22rpx;
   color: #666666;
   display: flex;
@@ -366,12 +371,12 @@ justify-content: center;
 margin: 26rpx 0rpx 26rpx 0rpx;
 }
 .shengbo-img{
-  width:110rpx;
-  height: 26rpx;
+  width:80rpx;
+  height: 20rpx;
 }
 .button{
-  width: 135rpx;
-	height: 46rpx;
+  width: 180rpx;
+	height: 50rpx;
 	background-image: linear-gradient(0deg, 
 		#e72828 0%, 
 		#f99292 100%);
@@ -380,7 +385,7 @@ margin: 26rpx 0rpx 26rpx 0rpx;
   border-radius: 14rpx;
   font-size: 24rpx;
   color: #ffffff;
-  line-height: 46rpx;
+  line-height: 50rpx;
   margin: 0rpx 20rpx;
 }
 .tip{
@@ -402,7 +407,7 @@ margin: 26rpx 0rpx 26rpx 0rpx;
 	box-shadow: 0rpx -4rpx 11rpx 0rpx 
 		rgba(51, 51, 51, 0.5);
 	border-radius: 12rpx 12rpx 0rpx 0rpx;
-  opacity: 0.7;
+  opacity: 0.8;
   color: #ffffff;
   line-height: 80rpx;
 }
@@ -425,7 +430,6 @@ font-size: 26rpx;
 color: #666666;
 border-bottom: solid 1rpx #e8e8e8;
 line-height: 70rpx;
-
 }
 .tabs-l{
   display: flex;
@@ -446,6 +450,7 @@ align-items: center;
 .icon-lishi{
   margin-top: 5rpx;
   display: flex;
+  font-size: 34rpx;
 }
 .tabs-item .iconfont{
 padding-right: 10rpx;
@@ -457,7 +462,7 @@ padding-right: 10rpx;
 .tabs-r{
   width: 160rpx;
 	height: 40rpx;
-	border-radius: 16rpx;
+	border-radius: 30rpx;
   border: solid 1rpx #999999;
   display:flex;
   justify-content: center;
@@ -528,7 +533,6 @@ justify-content: space-between;
   color: #666666;
   display: flex;
   align-items: center;
-  padding-left: 10rpx;
   padding-top: 16rpx;
 }
 .history-item .history-r .r-content .r-operation .icon-lishibofang{
@@ -539,6 +543,7 @@ justify-content: space-between;
 }
 .history-item .history-r .r-content .r-operation .bar{
   padding: 0 20rpx;
+  color:#e8e8e8;
 }
 .history-item .history-r .r-del{
  color: #999;
@@ -554,4 +559,18 @@ justify-content: space-between;
 .nomsg-img-box {
   padding-top: 100rpx !important;
 }
+.collent{
+  width: 38rpx;
+  height: 34rpx;
 
+}
+.play-icon{
+  width: 100rpx;
+  height: 100rpx;
+}
+.word-icon{
+  padding-top: 8rpx;
+}
+.isnot{
+  margin-top: 10rpx;
+}

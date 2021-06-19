@@ -40,16 +40,18 @@
       <text>{{durationText}}</text>
     </view>
     <view class="control">
-      <view class="item" bindtap="collectFn">
-        <icon class="iconfont icon-xin {{isCollect ? 'collect' :''}}"></icon>
-        <text class="word">收藏</text>
+      <view class="item isnot" bindtap="collectFn">
+        <image class="collent" src="{{isCollect ? '/assets/img/collent.png' :'/assets/img/not-collent.png'}}"></image>
+        <!-- <icon class="iconfont icon-xin {{isCollect ? 'collect' :''}}"></icon> -->
+        <text class="word word-icon">收藏</text>
       </view>
       <view class="item">
         <icon class="iconfont icon-top-music"  bindtap="lastMusic"></icon>
         <text class="word">上一章</text>
       </view>
-      <view class="item">
-        <icon class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}}" bindtap="handleMusicPlay"></icon>
+      <view class="item" bindtap="handleMusicPlay">
+        <image class="play-icon" src="{{isPlay ? '/assets/img/play.png' :'/assets/img/not-play.png'}}"></image>
+        <!-- <icon class="iconfont {{isPlay ? 'icon-zantingtingzhi' : 'icon-bofang'}}" ></icon> -->
       </view>
       <view class="item">
         <icon class="iconfont icon-next-music"  bindtap="nextMusic"></icon>
@@ -113,7 +115,7 @@
           <scroll-view scroll-y hidden="{{currentTabs!=0}}" style="height:580rpx;">
             <view class="menu-list">
             <block wx:for="{{menuData}}" wx:key="index">
-              <view class="item-list {{item.mwa_id==musicId ? 'playing':''}}" catchtap="onSelect" data-musicid="{{item.mwa_id}}" data-index="{{index}}">
+              <view class="item-list {{item.mwa_id==musicId ? 'playing':''}}" catchtap="onSelect" data-musicid="{{item.mwa_id}}" data-index="{{index}}" data-speed="{{item.status}}">
                 <view class="list-l">
                   {{item.mwa_title}}
                 </view>
@@ -121,19 +123,6 @@
                 <!-- <view class="list-r">{{item.mwa_id==musicId ? '播放中': item.status==0?'':'已播完'}}</view> -->
               </view>
             </block>
-              
-              <!-- <view class="item-list">
-                <view class="list-l">
-                  第15章   《管理会计研究》第一期_015
-                </view>
-                <view class="list-r">已播完</view>
-              </view>
-              <view class="item-list">
-                <view class="list-l">
-                  第15章   《管理会计研究》第一期_015
-                </view>
-                <view class="list-r">已播完</view>
-              </view> -->
             </view>
           </scroll-view>
           <scroll-view scroll-y hidden="{{currentTabs!=1}}" style="height:580rpx;"> 
@@ -143,27 +132,26 @@
                 <van-loading type="spinner" class="loading" />
               </view>
               <view wx:if="{{listShowType==1}}">
-                <block wx:for="{{historyData}}" wx:key="id">
-                  <navigator class="history-item" hover-class="none" url="/pages-homes/play/index?mwaId={{item.mwrl_id}}">
+                <block wx:for="{{historyData}}" wx:key="mwa_id">
+                  <view class="history-item" catchtap="onListFn" data-mwaid="{{item.mwa_id}}" data-speed="{{item.mwrl_speed}}" wx:if="{{item.mwa_title}}">
                     <view class="history-l">
                       <image mode='aspectFill' src="/assets/img/book.png" alt class="img" />
                     </view>
                     <view class="history-r">
                       <view class="r-content">
                         <view class="r-title ellipsis1row">{{item.mwa_title}}</view>
-                        <!-- <view class="r-sub ellipsis1row">{{item.sub}}</view> -->
                         <view class="r-operation">
                           <icon class="iconfont icon-lishibofang "></icon>
-                          <text class="time">10:00</text>
-                          <text class="bar">|</text>
-                          <text>已播放{{item.mwrl_speed}}</text>
+                          <!-- <text class="time">10:00</text>
+                          <text class="bar">|</text> -->
+                          <text class="time">已播放{{item.mwrl_speed}}</text>
                           <text class="bar">|</text>
                           <text>{{item.mwa_author}}</text>
                         </view>
                       </view>
                       <!-- <icon class="iconfont icon-quxiao r-del"></icon> -->
                     </view>
-                  </navigator>
+                  </view>
                 </block>
               </view>
                 <!-- 无内容 -->

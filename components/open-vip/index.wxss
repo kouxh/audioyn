@@ -6,12 +6,13 @@
 }
 
 .vip-title {
-  width: 500rpx;
-  height: 50rpx;
-  background-color: #ec5352;
+  width: 400rpx;
+  height: 38rpx;
+  background-color: #ff4040;
+  opacity: 0.8;
   box-shadow: 0rpx 2rpx 8rpx 0rpx rgba(51, 51, 51, 0.3);
   border-radius: 0rpx 0rpx 30rpx 30rpx;
-  font-size: 24rpx;
+  font-size: 20rpx;
   color: #ffffff;
   margin: 0 auto;
   display: flex;
@@ -21,7 +22,8 @@
 
 .vip-title .icon-huiyuan {
   display: flex;
-  padding-right: 16rpx;
+  padding-right: 4rpx;
+  font-size: 20rpx;
 }
 
 .vip-type {
@@ -44,7 +46,7 @@
 }
 
 .type-name {
-  font-size: 22rpx;
+  font-size: 20rpx;
   color: #333333;
 }
 
@@ -63,7 +65,7 @@
 }
 
 .submit {
-  width: 659rpx;
+  width: 690rpx;
   height: 60rpx;
   background-image: linear-gradient(0deg,
       #ec5352 0%,

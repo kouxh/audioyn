@@ -11,82 +11,46 @@ Page({
     selectOption:false,//控制期刊的下拉列表的显示隐藏
     timeOption: [],//杂志期刊数组
     timeName:'',//默认第几期
-    yearValue: 0,//默认年
-    timeValue:0,//默认期
     currentIndex: 0,//当前轮播图
     propData:[{
-      event_value:1,
-      event_type:1,
       images_url:'https://www.chinamas.cn/upload/2021/01/21/16112001614973.jpg'
     },
     {
-      event_value:2,
-      event_type:2,
       images_url:'https://www.chinamas.cn/upload/2021/04/10/16180699079770.jpg'
     }
   ,{
-    event_value:3,
-    event_type:3,
     images_url:'https://www.chinamas.cn/upload/2021/02/25/16142195292642.jpg'
   }
     ],
-    listData: [
-      {
-        id:1,
-        img:"https://march.yuanian.com/static/assets/img/none.png",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      },
-      {
-        id:2,
-        img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      },
-      {
-        id:3,
-        img:"https://march.yuanian.com/static/assets/img/none.png",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      }
-      ,{
-        id:4,
-        img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      },
-      {
-        id:5,
-        img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-        title:"音频标题标题标题标题标题标题标题标题",
-        num:2,
-        author:'作者姓名',
-        isBalloon:false,//是否展示操作框
-      }
-    ], //列表数组
-    magazineData:{},//期刊列表
+    listData: [], //列表数组
+    magazineData:{},//全部期刊列表
     total: 0, //列表总条数
     pageSize: 10,//每页个数
     pageIndex: 1,//当前也
     listShowType: 0, // 列表显示状态 0加载中 1有 2无
     finished: false,//是否加载完毕
     AllData:[],//总数据
+    mId:'',//单期杂志Id
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //杂志音频列表
-    this.maWalkListFn();
+    console.log(options,'---')
+    let mId=options.mId;
+    if(mId){
+      this.getMagazineAudioFn(mId)
+      this.setData({
+        maName:options.year,
+        timeName:options.title,
+        mId:mId
+      })
+    }else{
+      //杂志音频列表
+      this.maWalkListFn();
+    }
+  
   },
   // 年点击下拉显示框
   selectTap() {
@@ -180,7 +144,7 @@ Page({
     })
     if(_this.total / _this.pageSize > _this.pageIndex){
       that.setData({
-        listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, (_this.pageIndex-1) * _this.pageSize)),
+        listData:_this.listData.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex* _this.pageSize)),
         pageIndex: _this.pageIndex + 1 ,
       })
     }else{
@@ -194,26 +158,7 @@ Page({
     }, 300);
     wx.hideLoading();
   },
-  //点击操作
-  onEdit(e) {
-    let item = e.currentTarget.dataset.id;
-    let idx=e.currentTarget.dataset.idx;
-    console.log(item,idx)
-    // this.data.listData.forEach((item, i) => {
-    //   item.isBalloon = idx == i? true: false
-    // })
-    if(this.data.listData[idx].isBalloon){
-      this.data.listData[idx].isBalloon = !this.data.listData[idx].isBalloon
-    }else{
-      this.data.listData.forEach((item, i) => {
-        item.isBalloon = idx == i? true: false
-      })
-    }
-   
-    this.setData({
-      listData:this.data.listData
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -253,7 +198,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    // if (!this.data.finished) this.loadmore();
+    if (!this.data.finished) this.loadmore();
   },
 
   /**

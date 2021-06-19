@@ -8,16 +8,7 @@ Page({
   data: {
     searchContent: '',//表单项内容
     hotList:['数智化经营','财务管理'],//热门搜索数组
-    listData: [
-      // {
-      //   id:1,
-      //   img:"http://img.deiyou.net/upload/seller/goods/image/2019/9/25/061b559c523a4fd6992545d33410caaf",
-      //   title:"音频标题标题标题标题标题标题标题标题",
-      //   num:2,
-      //   author:'作者姓名',
-      //   isBalloon:false,//是否展示操作框
-      // },
-    ], //推荐列表数组
+    listData: [], //推荐列表数组
     searchList: [],//匹配到的数据
     pageIndex: 1,
     pageSize: 10,
@@ -99,7 +90,7 @@ Page({
     })
     if(_this.total / _this.pageSize > _this.pageIndex){
       that.setData({
-        searchList:_this.searchList.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, (_this.pageIndex-1) * _this.pageSize)),
+        searchList:_this.searchList.concat(_this.AllData.slice((_this.pageIndex-1) * _this.pageSize, _this.pageIndex * _this.pageSize)),
         pageIndex: _this.pageIndex + 1 ,
       })
     }else{
@@ -120,7 +111,7 @@ Page({
       searchList: [],
       isSearch:false
     })
-    console.log(this.data.searchContent,'清除-----')
+    
   },
   //点击热搜榜进行搜索
   searchHot(event){
@@ -170,7 +161,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (!this.data.finished) this.loadmore();
   },
 
   /**
