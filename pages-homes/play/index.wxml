@@ -18,7 +18,7 @@
     </view>
     <!-- 转盘 -->
     <view class="player-disc {{isPlay && 'discAnimation'}}">
-      <image class="player-img" src="/assets/img/book.png"></image>
+      <image class="player-img" src="{{playData.img}}"></image>
     </view>
     <!-- 摇杆 -->
     <image class="needle {{isPlay && 'needleRotate'}}" src="/assets/img/erji.png"></image>

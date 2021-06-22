@@ -8,6 +8,7 @@ Page({
   data: {
     isMusicPlay: getApp().globalData.isMusicPlay,//全局是否播放
     musicId:getApp().globalData.musicId,//全局播放id
+    musicImg:getApp().globalData.musicImg,
     currentIndex: 0,//当前轮播图的索引
     propData:[],//轮播图数据
     bookImg:[],//书的图片
@@ -147,7 +148,8 @@ Page({
     this.listDataFn();
     this.setData({
       isMusicPlay:getApp().globalData.isMusicPlay,
-      musicId:getApp().globalData.musicId
+      musicId:getApp().globalData.musicId,
+      musicImg:getApp().globalData.musicImg,
     })
     console.log(getApp().globalData.isMusicPlay,getApp().globalData.musicId,'====')
   },

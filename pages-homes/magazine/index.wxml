@@ -2,7 +2,7 @@
   <view class="header">
     <view class="title-box">
       <view class="item" bindtap='selectTap'>
-        <text class="item-text">《管理会计研究》{{maName?maName:yearOption[0]}}</text>
+        <text class="item-text ">《管理会计研究》{{maName?maName:yearOption[0]}}</text>
         <icon wx:if="{{mId==''}}" class="iconfont icon-sanjiao {{selectShow&&'select_img_rotate'}}"></icon>
       </view>
       <view class="select_box" wx:if="{{selectShow}}">
@@ -11,7 +11,7 @@
         </block>
       </view>
       <view class="item" bindtap='selectOption'>
-        <text class="item-text">{{timeName?timeName:timeOption[0].title}}</text>
+        <text class="item-text single">{{timeName?timeName:timeOption[0].title}}</text>
         <icon wx:if="{{mId==''}}" class="iconfont icon-sanjiao {{selectOption&&'select_img_rotate'}}"></icon>
       </view>
       <view class="select_box time-select" wx:if="{{selectOption}}">
@@ -21,7 +21,7 @@
       </view>
     </view>
     <swiper class="swiperBox" bindchange="changeSwiper" previous-margin="32" next-margin="32" interval="3000"
-      circular="{{true}}" autoplay="{{true}}">
+      circular="{{true}}" autoplay="{{true}}" wx:if="{{propData}}">
       <block wx:for="{{propData}}" wx:key="key">
         <swiper-item class="swiperItem">
           <image mode="aspectFill" src='{{item.images_url}}' class="imageItem {{currentIndex == index ? 'active': ''}}">

@@ -76,7 +76,7 @@
                 class="hot-author hot-describe ellipsis3row">内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介内容简介。</text>
             </view>
             <view class="hot-r">
-              <image mode='aspectFill' src="{{bookItem.mwadv_adver_url}}" alt class="img" />
+              <image mode='aspectFill' src="{{bookItem.mwadv_adver_url}}" alt class="img1" />
             </view>
           </view>
         </block>
@@ -114,7 +114,7 @@
           <block wx:for="{{maData}}" wx:key="m_id">
             <view class="mz-item" bindtap="singleFn" data-id="{{item.m_id}}" data-title="{{item.title}}"
               data-year="{{item.year}}">
-              <image mode='aspectFill' src="{{util.setImgUrl}}{{item.cover_img}}" alt class="mz-item-img img" />
+              <image mode='aspectFill' src="{{util.setImgUrl}}{{item.cover_img}}" alt class="mz-item-img " />
               <view class="mz-item-title">{{item.name}}</view>
               <view class="mz-item-sub ellipsis1row">{{item.title}}</view>
             </view>
@@ -144,6 +144,6 @@
       </view>
     </view>
   </view>
-  <float-view wx:if="{{isMusicPlay}}" class="float-popup {{isMusicPlay && 'discAnimation'}}" bind:backFn="backFn">
+  <float-view wx:if="{{isMusicPlay}}" class="float-popup {{isMusicPlay && 'discAnimation'}}" bind:backFn="backFn" musicImg='{{musicImg}}'>
   </float-view>
 </view>

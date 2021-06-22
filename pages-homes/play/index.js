@@ -31,8 +31,7 @@ Page({
     isCollect:false,//是否收藏
     payData: {}, // 支付配置参数
     isStatus:false,//是否展示单篇付费弹框
-    // isShare:false,//是否是从分享页进入
-    speed:'',//播放进程
+    speed:0,//播放进程
     isSinglePay:false,//单篇支付支付
   },
 
@@ -73,7 +72,7 @@ Page({
       //修改音乐播放状态
       this.changePlayState(true);
       appInstance.globalData.musicId = musicId;
-      
+      // appInstance.globalData.musicImg = this.data.playData.img;
     });
     backgroundAudioManager.onPause(()=>{
       this.changePlayState(false);
@@ -104,6 +103,17 @@ Page({
     })
     //监听音乐实时播放的进度
     backgroundAudioManager.onTimeUpdate(() => {
+      if(this.data.isSinglePay){
+        backgroundAudioManager.pause();
+        // setTimeout(() => {
+          backgroundAudioManager.seek(60);
+          // backgroundAudioManager.play();
+          console.log(this.data.isSinglePay,'this.data.isSinglePay')
+          this.setData({
+            isSinglePay:false
+          })
+        // }, 1000);
+      }
       this.setData({
         progress: Math.ceil(backgroundAudioManager.currentTime),
         progressText: this.formatTime(Math.ceil(backgroundAudioManager.currentTime)),
@@ -111,7 +121,9 @@ Page({
         durationText: this.formatTime(Math.ceil(backgroundAudioManager.duration)),
         isMusicLink:true
       })
+      
     })
+ 
   },
 
   //获取播放时长传给后台
@@ -200,6 +212,7 @@ Page({
                 isCollect,
                 isStatus
               });
+              appInstance.globalData.musicImg = this.data.playData.img;
               console.log(res.data.desc,isStatus,'00000')
               //歌曲播放
               backgroundAudioManager.title = this.data.playData.mwa_title
@@ -207,17 +220,17 @@ Page({
               backgroundAudioManager.singer = this.data.playData.mwa_author
               // 设置了 src 之后会自动播放
               backgroundAudioManager.src = this.data.playData.url
-              if(this.data.isSinglePay){
-                backgroundAudioManager.pause();
-                setTimeout(() => {
-                  backgroundAudioManager.seek(60);
-                  backgroundAudioManager.play();
-                  console.log(this.data.isSinglePay,'this.data.isSinglePay')
-                  this.setData({
-                    isSinglePay:false
-                  })
-                }, 1000);
-              }
+              // if(this.data.isSinglePay){
+              //   backgroundAudioManager.pause();
+              //   setTimeout(() => {
+              //     backgroundAudioManager.seek(60);
+              //     backgroundAudioManager.play();
+              //     console.log(this.data.isSinglePay,'this.data.isSinglePay')
+              //     this.setData({
+              //       isSinglePay:false
+              //     })
+              //   }, 1000);
+              // }
               if(this.data.speed&&this.data.speed!=100&&!this.data.isSinglePay){
                 backgroundAudioManager.pause();
                 let duration =parseInt(this.data.playData.mwrl_total_time);
@@ -226,7 +239,11 @@ Page({
                   backgroundAudioManager.seek(speeding);
                   backgroundAudioManager.play();
                   console.log(speeding,this.data.speed,duration)
+                  this.setData({
+                    speed:0
+                  })
                 }, 1000);
+                
               }
             }else{
               wx.showToast({ title: response.data.msg, icon: "none" });

@@ -372,12 +372,16 @@ page {
   flex-direction: column;
   /* width: 160rpx; */
 }
-
+.img1{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .mz-item-img {
   width: 134rpx;
   height: 155rpx;
   background-color: #999999;
-  border-radius: 9rpx;
+  border-radius: 6rpx;
 }
 
 .mz-item-title {

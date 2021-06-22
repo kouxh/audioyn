@@ -70,7 +70,8 @@ App({
     api, //请求方法封装
     isIphoneX: false, // 是否属于iPhone X系列
     isMusicPlay: false,//是否有音乐播放
-    musicId: ''//音乐id
+    musicId: '',//音乐id
+    musicImg:'',//当前播放音乐图片
   }
 })
 

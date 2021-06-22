@@ -66,8 +66,14 @@ Page({
     })
     if (this.data.magazineData.hasOwnProperty(name))
       this.setData({
-        timeOption:this.data.magazineData[name]
+        timeOption:this.data.magazineData[name],
+        timeName:this.data.magazineData[name][0].title,
+        listShowType:0,
+        AllData:[]
       })
+  
+      let mId=this.data.magazineData[name][0].m_id
+      this.getMagazineAudioFn(mId)
   },
   // 期刊点击下拉显示框
   selectOption() {
@@ -105,12 +111,14 @@ Page({
           magazineData:res.data.magazine,
           AllData:res.data.list,
           total:res.data.list.length,
+          timeOption:res.data.magazine[Object.keys(res.data.magazine)[0]]
         });
-        for (let key in res.data.magazine) {
-          this.setData({
-            timeOption:res.data.magazine[key]
-          })
-        }
+        // for (let key in res.data.magazine) {
+          // this.setData({
+          //   timeOption:res.data.magazine[this.data.yearOption[0]]
+          // })
+          // console.log(this.data.timeOption)
+        // }
         this.loadmore();
       }else{
         wx.showToast({ title: res.data.msg, icon: "none" });
