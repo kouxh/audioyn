@@ -250,7 +250,7 @@ button{
   width: 190rpx;
   height: 45rpx;
   border-radius: 22rpx;
-  border: solid 1rpx #bbb;
+  border: solid 1rpx #bfbfbf;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 630rpx);
@@ -335,7 +335,7 @@ button{
   width: 178rpx;
   height: 45rpx;
   border-radius: 22rpx;
-  border: solid 1rpx #bbb;
+  border: solid 1rpx #bfbfbf;
   font-size: 22rpx;
   color: #666666;
   display: flex;
@@ -348,7 +348,7 @@ button{
 }
 /* 付费弹框 */
 .popup-pay{
-  width: 408rpx;
+  width: 386rpx;
   height: 214rpx;
   background: url('https://march.yuanian.com/static/assets/img/tankuang.png') no-repeat center/contain;
   padding: 50rpx 92rpx 0rpx 92rpx;
@@ -382,7 +382,7 @@ margin: 26rpx 0rpx 26rpx 0rpx;
 		#f99292 100%);
 	box-shadow: 0rpx 4rpx 5rpx 0rpx 
 		rgba(118, 118, 118, 0.25);
-  border-radius: 14rpx;
+  border-radius: 30rpx;
   font-size: 24rpx;
   color: #ffffff;
   line-height: 50rpx;

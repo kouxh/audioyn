@@ -67,7 +67,6 @@ button::after{
   color: #ffffff;
   line-height: 50rpx;
   text-align: center;
-  border: solid 1rpx#e72828 ;
 }
 .phone-img{
   position: absolute;

@@ -22,8 +22,8 @@
 .textArea-box{
   width: 600rpx;
 	height: 322rpx;
-	border-radius: 3rpx;
-	border: solid 1rpx #999999;
+	border-radius: 4rpx;
+	border: solid 1rpx #bfbfbf;
   padding: 20rpx;
   margin: 0 auto;
   margin-top: 30rpx;

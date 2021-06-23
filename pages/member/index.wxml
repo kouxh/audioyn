@@ -64,7 +64,7 @@
             bindinput="handleInput" id="info.company" placeholder-class="pla" />
         </view>
         <view class="every-info">
-          <icon class="iconfont icon-gongsimingcheng"></icon>
+          <icon class="iconfont icon-zhiwei"></icon>
           <text class="input-title">职位</text>
           <van-dropdown-menu>
             <van-dropdown-item value="{{ occValue }}" options="{{ occOption }}" bind:change="occOptionChange" />

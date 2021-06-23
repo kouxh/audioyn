@@ -87,7 +87,7 @@
 }
 .icon-tuijian{
   display: flex;
-  color: #F7817B;
+  color: #f85858;
   font-size: 34rpx;
 }
 .text{

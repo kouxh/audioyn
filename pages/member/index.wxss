@@ -103,7 +103,7 @@
   height: 45rpx !important;
   box-shadow:none !important;
   background-color: transparent !important;
-	border-radius: 20rpx;
+	border-radius: 24rpx;
   border: solid 1rpx #d0d0d0;
   color: #666666;
   padding-left: 30rpx;
@@ -180,6 +180,9 @@ justify-content: space-between;
 .history-item .history-r .r-content .r-operation .bar{
   padding: 0 20rpx;
   color: #e8e8e8;
+}
+.icon-zhiwei{
+  font-size: 20rpx !important;
 }
 .history-item .history-r .r-del{
  color: #999;

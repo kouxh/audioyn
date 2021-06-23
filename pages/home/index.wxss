@@ -132,7 +132,7 @@ page {
 }
 
 .item-text {
-  font-size: 26rpx;
+  font-size: 24rpx;
   line-height: 32rpx;
   color: #333333;
   padding-top: 8rpx;
@@ -161,7 +161,7 @@ page {
 
 .listenScroll-box {
   display: flex;
-  padding: 0 48rpx;
+  padding: 0 52rpx;
 }
 
 .scrollItem {
@@ -392,7 +392,7 @@ page {
 }
 
 .mz-item-sub {
-  font-size: 20rpx;
+  font-size: 18rpx;
   color: #666666;
   width: 138rpx;
 }
