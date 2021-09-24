@@ -11,10 +11,10 @@
     <view class="content-box" wx:if="{{listShowType==1}}">
       <navigator hover-class="none" url="/pages-homes/play/index?mwaId={{item.mwa_id}}" class="each-item" wx:for="{{listData}}" wx:key="index" >
         <view class="rank">
-          <image wx:if='{{index+1==1}}' mode='aspectFill' src="/assets/img/one.png" alt class="img mark" />
-          <image wx:elif='{{index+1==2}}' mode='aspectFill' src="/assets/img/two.png" alt class="img mark" />
-          <image wx:elif='{{index+1==3}}' mode='aspectFill' src="/assets/img/three.png" alt class="img mark" />
-          <image wx:else mode='aspectFill' src="/assets/img/other.png" alt class="img mark" />
+          <image wx:if='{{index+1==1}}' mode='aspectFill' src="/assets/img/one.png" alt class="mark" />
+          <image wx:elif='{{index+1==2}}' mode='aspectFill' src="/assets/img/two.png" alt class="mark" />
+          <image wx:elif='{{index+1==3}}' mode='aspectFill' src="/assets/img/three.png" alt class="mark" />
+          <image wx:else mode='aspectFill' src="/assets/img/other.png" alt class="mark" />
           <text class="ranking">{{index+1}}</text>
         </view>
         <view class="item-l">

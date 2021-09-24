@@ -26,9 +26,7 @@ App({
       setStorage('record', record, that);
     }
     //判断是否过期重新登录
-    // this.checkSession();
-
-    
+    this.checkSession();
     // 判断是否是机型
     wx.getSystemInfo({
       success(res) {
@@ -41,17 +39,17 @@ App({
         }
       }
     })
-    
   },
   //判断是否过期
   async checkSession() {
     var response = await account.checkSession();
     var token=wx.getStorageSync('userInfo').token;
     if(!response || token==undefined){
-      wx.showToast({
-        title: "授权过期，请点击重新登录",
-        icon: "none"
-      });
+      console.log(response,token,'222')
+      // wx.showToast({
+      //   title: "授权过期，请点击重新登录",
+      //   icon: "none"
+      // });
       wx.removeStorageSync("userInfo")
       wx.removeStorageSync("hasBindMobile")
       // wx.reLaunch({
@@ -59,6 +57,7 @@ App({
       // })
       return false;
     }else{
+      // console.log(response,token,'333')
       // wx.switchTab({
       //   url: '/pages/home/index',
       // })

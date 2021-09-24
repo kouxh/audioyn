@@ -30,10 +30,7 @@
       "outputPath": ""
     },
     "enableEngineNative": false,
-    "bundle": false,
     "useIsolateContext": true,
-    "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": true,
     "packNpmRelationList": [
@@ -42,12 +39,13 @@
         "miniprogramNpmDistDir": "./"
       }
     ],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "showES6CompileOption": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.17.0",
   "appid": "wx65c507db063f7cca",
-  "projectname": "CMAS随身听",
+  "projectname": "CMAS随心听",
   "debugOptions": {
     "hidedInDevtools": []
   },

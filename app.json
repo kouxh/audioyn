@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/home/index",
     "pages/index/index",
+    "pages/home/index",
     "pages/logs/logs",
     "pages/recommend/index",
     "pages/member/index",
@@ -25,7 +25,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f5f5f5",
-    "navigationBarTitleText": "CMAS随身听",
+    "navigationBarTitleText": "CMAS随心听",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

@@ -3,6 +3,7 @@
 const backgroundAudioManager=wx.getBackgroundAudioManager()
 import regeneratorRuntime from "../../libs/regenerator/runtime-module";
 import {toPoint} from "../../utils/util";
+const util = require('../../utils/util');
 //获取全局实例
 const appInstance = getApp();
 Page({
@@ -408,8 +409,9 @@ Page({
       if(res.bol==true){
         let {currentIndex}=this.data
         for (let i in res.data) {
-          if (res.data[i] == this.data.musicId) {
+          if (res.data[i].mwa_id == this.data.musicId) {
             currentIndex=i
+            console.log(currentIndex,'currentIndex')
           }
         }
         that.setData({
@@ -455,7 +457,7 @@ Page({
         }
       })
     }else{
-      // wx.showToast({ title: "您已经收藏了", icon: "none" });
+      // wx.showToast({ title: "您已经收藏过了", icon: "none" });
       this.cancelCollectionFn();
     }
   },
@@ -464,42 +466,41 @@ Page({
     let that=this;
     getApp().globalData.api.cancelCollection({
       uid:wx.getStorageSync('userInfo').uid,
-      coll_id:this.data.musicId
+      auid:this.data.musicId
     }).then(res=>{
       if(res.bol){
         wx.showToast({ title: res.data.msg, icon: "none" });
         that.setData({
           isCollect:false
         });
-        console.log(that.data.isCollect)
       }else{
         wx.showToast({ title: res.data.msg, icon: "none" });
       }
     })
   },
   //单篇支付
-  singlePay(){
-    let that=this;
-     // 请求接口获取唤醒支付的参数
-     getApp()
-     .globalData.api.walkPay({
-        type:1,//单篇购买音频 1 VIP购买 2
-        uid:wx.getStorageSync('userInfo').uid,
-        auid:that.data.musicId
-      })
-      .then(res => {
-        // 得到支付需要的参数信息
-        that.setData({ payData: res});
-        // 唤起支付弹框
-        that.arousePayFn();
-      });
-  },
+  // singlePay(){
+  //   let that=this;
+  //    // 请求接口获取唤醒支付的参数
+  //    getApp()
+  //    .globalData.api.walkPay({
+  //       type:1,//单篇购买音频 1 VIP购买 2
+  //       uid:wx.getStorageSync('userInfo').uid,
+  //       auid:that.data.musicId
+  //     })
+  //     .then(res => {
+  //       // 得到支付需要的参数信息
+  //       that.setData({ payData: res});
+  //       // 唤起支付弹框
+  //       that.arousePayFn();
+  //     });
+  // },
   // 唤起支付弹框
   arousePayFn() {
     let that = this;
     let payData = that.data.payData;
     wx.requestPayment({
-      timeStamp: payData.timeStamp.toString(),
+      timeStamp: payData.timeStamp +"",
       nonceStr: payData.nonceStr,
       package: payData.package,
       signType: payData.signType,
@@ -519,6 +520,26 @@ Page({
       }
     });
   },
+  //单篇支付
+  singlePay: util.throttle(function(e) {
+    // 书写业务逻辑
+    let that=this;
+    // 请求接口获取唤醒支付的参数
+    getApp()
+    .globalData.api.walkPay({
+       type:1,//单篇购买音频 1 VIP购买 2
+       uid:wx.getStorageSync('userInfo').uid,
+       auid:that.data.musicId
+     })
+     .then(res => {
+       // 得到支付需要的参数信息
+       that.setData({ payData: res});
+       // 唤起支付弹框
+       that.arousePayFn();
+     });
+  },1000),
+
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -584,7 +605,7 @@ Page({
     let _this = this.data;
     if (options.from === 'button') {
       return {
-        title: _this.playData.mwc_title,
+        title: _this.playData.mwa_title,
         path:`/pages-homes/play/index?isShare=true&mwaId=${_this.musicId}`,
       }
     }

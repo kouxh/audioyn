@@ -16,7 +16,7 @@
     <!-- 上传图片 -->
     <view class="input-upload">
       <van-uploader file-list="{{ fileList }}" max-count="1" bind:after-read="afterRead" bind:delete="delete"
-        bind:click-preview='previewImage' />
+       />
     </view>
     <view class="fooder-btn" wx:if="{{submitBool}}" bind:tap="commentFn">提交</view>
     <view class="fooder-btn" wx:if="{{!submitBool}}">提交中…</view>
